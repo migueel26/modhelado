@@ -1,0 +1,31 @@
+public class DescripcionInteres {
+
+	private String texto;
+	private Usuario usuario;
+	private Interes interes;
+
+	/**
+	 * 
+	 * @param texto
+	 * @param usuario
+	 */
+	public DescripcionInteres(String texto, Usuario usuario) {
+		// TODO - implement DescripcionInteres.DescripcionInteres
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param texto
+	 */
+	public void setDescripcion(String texto) {
+		// TODO - implement DescripcionInteres.setDescripcion
+		throw new UnsupportedOperationException();
+	}
+
+	public String getDescripcion() {
+		// TODO - implement DescripcionInteres.getDescripcion
+		throw new UnsupportedOperationException();
+	}
+
+}
