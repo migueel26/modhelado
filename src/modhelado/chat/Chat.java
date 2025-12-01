@@ -2,6 +2,8 @@ package modhelado.chat;
 
 import modhelado.usuario.Usuario;
 
+import java.util.List;
+
 public class Chat {
 
 	private String fechaCreacion;
