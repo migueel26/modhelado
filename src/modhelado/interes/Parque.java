@@ -1,14 +1,16 @@
+package modhelado.interes;
+
 public class Parque extends Interes {
 
 	private Parque parque;
 
 	private void Paque() {
-		// TODO - implement Parque.Paque
+		// TODO - implement modhelado.interes.Parque.Paque
 		throw new UnsupportedOperationException();
 	}
 
 	public Parque parque() {
-		// TODO - implement Parque.parque
+		// TODO - implement modhelado.interes.Parque.parque
 		throw new UnsupportedOperationException();
 	}
 

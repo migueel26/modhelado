@@ -1,3 +1,7 @@
+package modhelado.chat;
+
+import modhelado.usuario.Usuario;
+
 public class Chat {
 
 	private String fechaCreacion;
@@ -10,7 +14,7 @@ public class Chat {
 	 * @param fecha
 	 */
 	public Chat(List<Usuario> usuarios, String fecha) {
-		// TODO - implement Chat.Chat
+		// TODO - implement modhelado.chat.Chat.modhelado.chat.Chat
 		throw new UnsupportedOperationException();
 	}
 
@@ -20,7 +24,7 @@ public class Chat {
 	 * @param texto
 	 */
 	public void enviarMensaje(String userName, String texto) {
-		// TODO - implement Chat.enviarMensaje
+		// TODO - implement modhelado.chat.Chat.enviarMensaje
 		throw new UnsupportedOperationException();
 	}
 

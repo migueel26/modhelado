@@ -1,3 +1,7 @@
+package modhelado.chat;
+
+import modhelado.usuario.Usuario;
+
 public class ChatPrivado extends Chat {
 
 	/**
@@ -7,7 +11,7 @@ public class ChatPrivado extends Chat {
 	 * @param fecha
 	 */
 	public ChatPrivado(Usuario usuario1, Usuario usuario2, String fecha) {
-		// TODO - implement ChatPrivado.ChatPrivado
+		// TODO - implement modhelado.chat.ChatPrivado.modhelado.chat.ChatPrivado
 		throw new UnsupportedOperationException();
 	}
 

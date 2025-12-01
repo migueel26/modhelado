@@ -1,3 +1,7 @@
+package modhelado.chat;
+
+import modhelado.usuario.Usuario;
+
 public class ChatGrupal extends Chat {
 
 	/**
@@ -6,7 +10,7 @@ public class ChatGrupal extends Chat {
 	 * @param fecha
 	 */
 	public ChatGrupal(List<Usuario> usuarios, String fecha) {
-		// TODO - implement ChatGrupal.ChatGrupal
+		// TODO - implement modhelado.chat.ChatGrupal.modhelado.chat.ChatGrupal
 		throw new UnsupportedOperationException();
 	}
 
@@ -15,7 +19,7 @@ public class ChatGrupal extends Chat {
 	 * @param usuario
 	 */
 	public void addUsuario(Usuario usuario) {
-		// TODO - implement ChatGrupal.addUsuario
+		// TODO - implement modhelado.chat.ChatGrupal.addUsuario
 		throw new UnsupportedOperationException();
 	}
 
@@ -24,7 +28,7 @@ public class ChatGrupal extends Chat {
 	 * @param usuario
 	 */
 	public void eliminarUsuario(Usuario usuario) {
-		// TODO - implement ChatGrupal.eliminarUsuario
+		// TODO - implement modhelado.chat.ChatGrupal.eliminarUsuario
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,3 +1,7 @@
+package modhelado.usuario.conexion;
+
+import modhelado.usuario.Usuario;
+
 public class Conexion {
 
 	private String fecha;
@@ -11,12 +15,12 @@ public class Conexion {
 	 * @param fecha
 	 */
 	private Conexion(Usuario usuario1, Usuario usuario2, String fecha) {
-		// TODO - implement Conexion.Conexion
+		// TODO - implement modhelado.usuario.conexion.Conexion.modhelado.usuario.conexion.Conexion
 		throw new UnsupportedOperationException();
 	}
 
 	public String conexion() {
-		// TODO - implement Conexion.conexion
+		// TODO - implement modhelado.usuario.conexion.Conexion.conexion
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,3 +1,7 @@
+package modhelado.tablon.evento;
+
+import modhelado.interes.Interes;
+
 public class Evento {
 
 	Interes interes;
@@ -14,7 +18,7 @@ public class Evento {
 	 * @param lugar
 	 */
 	public Evento(String titulo, String fecha, String aforo, String lugar) {
-		// TODO - implement Evento.Evento
+		// TODO - implement modhelado.tablon.evento.Evento.modhelado.tablon.evento.Evento
 		throw new UnsupportedOperationException();
 	}
 
@@ -23,7 +27,7 @@ public class Evento {
 	 * @param interes
 	 */
 	protected void addInteres(InteresEvento interes) {
-		// TODO - implement Evento.addInteres
+		// TODO - implement modhelado.tablon.evento.Evento.addInteres
 		throw new UnsupportedOperationException();
 	}
 
@@ -32,7 +36,7 @@ public class Evento {
 	 * @param tablon
 	 */
 	protected void addTablon(EventoTablon tablon) {
-		// TODO - implement Evento.addTablon
+		// TODO - implement modhelado.tablon.evento.Evento.addTablon
 		throw new UnsupportedOperationException();
 	}
 

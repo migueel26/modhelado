@@ -1,3 +1,7 @@
+package modhelado.interes;
+
+import modhelado.usuario.Usuario;
+
 public class DescripcionInteres {
 
 	private String texto;
@@ -10,7 +14,7 @@ public class DescripcionInteres {
 	 * @param usuario
 	 */
 	public DescripcionInteres(String texto, Usuario usuario) {
-		// TODO - implement DescripcionInteres.DescripcionInteres
+		// TODO - implement modhelado.interes.DescripcionInteres.modhelado.interes.DescripcionInteres
 		throw new UnsupportedOperationException();
 	}
 
@@ -19,12 +23,12 @@ public class DescripcionInteres {
 	 * @param texto
 	 */
 	public void setDescripcion(String texto) {
-		// TODO - implement DescripcionInteres.setDescripcion
+		// TODO - implement modhelado.interes.DescripcionInteres.setDescripcion
 		throw new UnsupportedOperationException();
 	}
 
 	public String getDescripcion() {
-		// TODO - implement DescripcionInteres.getDescripcion
+		// TODO - implement modhelado.interes.DescripcionInteres.getDescripcion
 		throw new UnsupportedOperationException();
 	}
 

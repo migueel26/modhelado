@@ -1,3 +1,5 @@
+package modhelado.chat;
+
 public class Mensaje {
 
 	private String texto;
@@ -9,7 +11,7 @@ public class Mensaje {
 	 * @param fecha
 	 */
 	public Mensaje(String texto, String fecha) {
-		// TODO - implement Mensaje.Mensaje
+		// TODO - implement modhelado.chat.Mensaje.modhelado.chat.Mensaje
 		throw new UnsupportedOperationException();
 	}
 
