@@ -195,16 +195,29 @@ context Evento
     inv participantesNoSuperaAforo:
         self.aforo >= self.asistentes->size()
 
+    -- El creador del evento debe ser también un asistente al evento.
+    inv creadorEventoTambienAsistente:
+        self.asistentes->size() > 0 implies
+            self.asistentes->includes(self.usuarioCreador)
 
 context TablonEventos
+    -- Tanto el tablón de eventos como el de publicaciones de un usuario, deberán contener 
+    -- eventos/publicaciones que contengan al menos un interés común con el usuario. 
     inv alMenosUnInteres:
-        -- TODO: esto está MAL porque puede que sólo te muestre un evento con intereses relacionados
-        -- y el resto de eventos no tengan nada que ver
-        self.eventos->collect(intereses)->intersection(self.usuario.intereses)->size() > 0
+        self.eventos->forAll(intereses->intersection(self.usuario.intereses)->size() > 0)
 
+context TablonPublicaciones
+    -- Análogo al de TablonEventos
+    inv alMenosUnInteres:
+        self.publicaciones->forAll(intereses->intersection(self.usuario.intereses)->size() > 0)
 
 context ChatPrivado
     -- Para que un chat privado exista entre 2 usuarios deben tener una conexión con estado Aceptada
     inv chatPrivadoConexionAceptada:
         Conexion.allInstances()->
             exists(c | Set{c.usuario1, c.usuario2}->intersection(self.usuarios)->size() = 2 and c.estado = #Aceptada)
+
+    -- Un usuario no podrá mantener un chat privado consigo mismo.
+    inv chatPrivadoUsuariosDiferentes:
+        self.usuarios->isUnique(nombreUsuario)  -- como el nombreUsuario es único para todos los usuarios
+                                                -- se garantiza que los usuarios sean distintos
