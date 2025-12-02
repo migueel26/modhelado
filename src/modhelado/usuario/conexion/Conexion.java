@@ -18,7 +18,7 @@ public class Conexion {
 	 * @param usuario2
 	 * @param fecha
 	 */
-	private Conexion(Usuario usuario1, Usuario usuario2, String fecha) {
+	public Conexion(Usuario usuario1, Usuario usuario2, String fecha) {
 		this.usuario1 = usuario1;
 		this.usuario2 = usuario2;
 		this.fecha = fecha;
@@ -43,6 +43,22 @@ public class Conexion {
 
 	public void bloquear() {
 		estado.bloquear(this);
+	}
+
+	public EstadoConexion getEstado() {
+		return estado;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public Usuario getUsuario1() {
+		return usuario1;
+	}
+
+	public Usuario getUsuario2() {
+		return usuario2;
 	}
 
 	@Override
