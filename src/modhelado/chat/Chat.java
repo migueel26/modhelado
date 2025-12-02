@@ -2,30 +2,55 @@ package modhelado.chat;
 
 import modhelado.usuario.Usuario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chat {
 
-	private String fechaCreacion;
+	protected String fechaCreacion;
 	private int idChat;
-	private List<Usuario> usuarios;
+	protected List<Usuario> usuarios;
+	protected static int contadorIDs = 0;
+	protected List<Mensaje> historial;
 
 	/**
 	 * 
-	 * @param usuarios
+	 * @param creador
 	 * @param fecha
 	 */
-	public Chat(List<Usuario> usuarios, String fecha) {
-		// TODO - implement modhelado.chat.Chat.modhelado.chat.Chat
-		throw new UnsupportedOperationException();
+	public Chat(Usuario creador, String fecha) {
+		this.idChat = contadorIDs++;
+		this.fechaCreacion = fecha;
+		this.usuarios = new ArrayList<>();
+		this.historial = new ArrayList<>();
+		this.usuarios.add(creador);
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public List<Mensaje> getHistorial() {
+		return historial;
+	}
+
+	public int getIdChat() {
+		return idChat;
 	}
 
 	/**
 	 * 
-	 * @param userName
+	 * @param remitente
 	 * @param texto
 	 */
-	public void enviarMensaje(String userName, String texto) {
-		// TODO - implement modhelado.chat.Chat.enviarMensaje
-		throw new UnsupportedOperationException();
+	public void enviarMensaje(Usuario remitente, String texto, String fechaActual) {
+		if(usuarios.contains(remitente)){
+			Mensaje nuevoMensaje = new Mensaje(texto, fechaActual, remitente);
+			this.historial.add(nuevoMensaje);
+			System.out.println("Mensaje enviado por " + remitente.getUsername() + ": " + texto);
+		}else{
+			System.out.println("Error: El usuario no pertenece a este chat");
+		}
 	}
 
 }

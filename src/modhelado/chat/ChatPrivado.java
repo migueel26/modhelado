@@ -11,8 +11,12 @@ public class ChatPrivado extends Chat {
 	 * @param fecha
 	 */
 	public ChatPrivado(Usuario usuario1, Usuario usuario2, String fecha) {
-		// TODO - implement modhelado.chat.ChatPrivado.modhelado.chat.ChatPrivado
-		throw new UnsupportedOperationException();
+		super(usuario1, fecha);
+		if(!usuario1.equals(usuario2)){
+			this.usuarios.add(usuario2);
+		}else{
+			throw new IllegalArgumentException("Error: No se puede crear un chat privado con el mismo usuario");
+		}
 	}
 
 }

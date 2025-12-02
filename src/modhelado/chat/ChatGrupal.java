@@ -6,12 +6,11 @@ public class ChatGrupal extends Chat {
 
 	/**
 	 * 
-	 * @param usuarios
+	 * @param creador
 	 * @param fecha
 	 */
-	public ChatGrupal(List<Usuario> usuarios, String fecha) {
-		// TODO - implement modhelado.chat.ChatGrupal.modhelado.chat.ChatGrupal
-		throw new UnsupportedOperationException();
+	public ChatGrupal(Usuario creador, String fecha) {
+		super(creador, fecha);
 	}
 
 	/**
@@ -19,8 +18,12 @@ public class ChatGrupal extends Chat {
 	 * @param usuario
 	 */
 	public void addUsuario(Usuario usuario) {
-		// TODO - implement modhelado.chat.ChatGrupal.addUsuario
-		throw new UnsupportedOperationException();
+		if(!this.usuarios.contains(usuario)){
+			this.usuarios.add(usuario);
+			System.out.println(usuario.getUserName() + " se ha unido al grupo");
+		}else{
+			System.out.println("El usuario ya está en el grupo");
+		}
 	}
 
 	/**
@@ -28,8 +31,12 @@ public class ChatGrupal extends Chat {
 	 * @param usuario
 	 */
 	public void eliminarUsuario(Usuario usuario) {
-		// TODO - implement modhelado.chat.ChatGrupal.eliminarUsuario
-		throw new UnsupportedOperationException();
+		if (this.usuarios.contains(usuario)) {
+			this.usuarios.remove(usuario);
+			System.out.println(usuario.getUsername() + " ha sido eliminado del grupo.");
+		} else {
+			System.out.println("El usuario no estaba en el grupo.");
+		}
 	}
 
 }
