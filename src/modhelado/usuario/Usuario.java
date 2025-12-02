@@ -1,33 +1,37 @@
 package modhelado.usuario;
 
+import modhelado.tablon.TablonEventos;
+import modhelado.tablon.TablonPublicacion;
 import modhelado.usuario.conexion.Conexion;
 import modhelado.tablon.evento.Evento;
 import modhelado.chat.Mensaje;
 import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 
-public class Usuario {
+import java.util.List;
 
-	private String userName;
+public class Usuario {
+	private final TablonEventos tablonEventos;
+	private final TablonPublicacion tablonPublicacion;
+	private List<Conexion> conexiones;
+	private List<Chat> chats;
+	private String username;
 	private String nombre;
 	private String apellidos;
-	private int edad;
 	private String correo;
 	private String fechaNacimiento;
-	private Boolean vetado;
+	private boolean vetado;
 
-	/**
-	 * 
-	 * @param userName
-	 * @param nombre
-	 * @param apellidos
-	 * @param edad
-	 * @param correo
-	 * @param fechaNacimiento
-	 */
-	public Usuario(String userName, String nombre, String apellidos, int edad, String correo, String fechaNacimiento) {
-		// TODO - implement modhelado.usuario.Usuario.modhelado.usuario.Usuario
-		throw new UnsupportedOperationException();
+	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
+		this.username = username;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.fechaNacimiento = fechaNacimiento;
+		this.vetado = false;
+
+		this.tablonEventos = new TablonEventos();
+		this.tablonPublicacion = new TablonPublicacion();
 	}
 
 	/**
@@ -64,8 +68,8 @@ public class Usuario {
 	 * @param chat
 	 */
 	public void enviarMensaje(Mensaje mensaje, Chat chat) {
-		// TODO - implement modhelado.usuario.Usuario.enviarMensaje
-		throw new UnsupportedOperationException();
+		assert chat != null && mensaje != null;
+		chat.enviarMensaje(username, mensaje);
 	}
 
 	/**
@@ -75,6 +79,10 @@ public class Usuario {
 	public void accederEvento(Evento evento) {
 		// TODO - implement modhelado.usuario.Usuario.accederEvento
 		throw new UnsupportedOperationException();
+	}
+
+	public String getUsername() {
+		return username;
 	}
 
 }

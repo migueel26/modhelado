@@ -1,17 +1,37 @@
 package modhelado.usuario.conexion;
 
-public class Pendiente extends Conexion {
+public class Pendiente implements EstadoConexion {
+	// PATRÓN SINGLETON
+	private static Pendiente pendiente;
 
-	private Pendiente pendiente;
+	private Pendiente() {}
 
-	private Pendiente() {
-		// TODO - implement modhelado.usuario.conexion.Pendiente.modhelado.usuario.conexion.Pendiente
-		throw new UnsupportedOperationException();
+	public static Pendiente pendiente() {
+		if (pendiente == null) {
+			pendiente = new Pendiente();
+		}
+		return pendiente;
 	}
 
-	public Pendiente pendiente() {
-		// TODO - implement modhelado.usuario.conexion.Pendiente.pendiente
-		throw new UnsupportedOperationException();
+	@Override
+	public void aceptar(Conexion conexion) {
+		assert conexion != null;
+		conexion.cambiarEstado(Aceptada.aceptada());
 	}
 
+	@Override
+	public void cancelar(Conexion conexion) {
+		assert conexion != null;
+	}
+
+	@Override
+	public void bloquear(Conexion conexion) {
+		assert conexion != null;
+		conexion.cambiarEstado(Bloqueada.bloqueada());
+	}
+
+	@Override
+	public String conexion(Conexion conexion) {
+		return "PENDIENTE";
+	}
 }

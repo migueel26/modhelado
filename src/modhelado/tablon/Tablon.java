@@ -2,30 +2,20 @@ package modhelado.tablon;
 
 import modhelado.interes.Interes;
 
-public class Tablon {
+import java.util.List;
 
-	public Tablon() {
-		// TODO - implement modhelado.tablon.Tablon.modhelado.tablon.Tablon
-		throw new UnsupportedOperationException();
-	}
+public abstract class Tablon {
 
-	public void ver() {
-		// TODO - implement modhelado.tablon.Tablon.ver
-		throw new UnsupportedOperationException();
-	}
+	protected Tablon(){}
 
-	public int getSize() {
-		// TODO - implement modhelado.tablon.Tablon.getSize
-		throw new UnsupportedOperationException();
-	}
+	public abstract void ver();
+
+	public abstract int getSize();
 
 	/**
 	 * 
 	 * @param intereses
 	 */
-	public void personalizar(Interes intereses) {
-		// TODO - implement modhelado.tablon.Tablon.personalizar
-		throw new UnsupportedOperationException();
-	}
+	public abstract void personalizar(List<Interes> intereses);
 
 }
