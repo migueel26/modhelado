@@ -3,7 +3,6 @@ package modhelado.interes;
 import modhelado.usuario.Usuario;
 
 public class DescripcionInteres {
-
 	private String texto;
 	private Usuario usuario;
 	private Interes interes;
@@ -32,4 +31,15 @@ public class DescripcionInteres {
 		throw new UnsupportedOperationException();
 	}
 
+	public String getTexto() {
+		return texto;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public Interes getInteres() {
+		return interes;
+	}
 }

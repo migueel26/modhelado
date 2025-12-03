@@ -1,20 +1,27 @@
 package modhelado.usuario;
 
+import modhelado.GestorBaseDatos;
+import modhelado.interes.Interes;
 import modhelado.tablon.TablonEventos;
 import modhelado.tablon.TablonPublicacion;
+import modhelado.tablon.publicacion.Publicacion;
 import modhelado.usuario.conexion.Conexion;
 import modhelado.tablon.evento.Evento;
 import modhelado.chat.Mensaje;
 import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class Usuario {
 	private final TablonEventos tablonEventos;
 	private final TablonPublicacion tablonPublicacion;
 	private List<Conexion> conexiones;
 	private List<Chat> chats;
+	private List<DescripcionInteres> intereses;
 	private String username;
 	private String nombre;
 	private String apellidos;
@@ -34,13 +41,14 @@ public class Usuario {
 		this.tablonPublicacion = new TablonPublicacion();
 	}
 
-	/**
-	 * 
-	 * @param conexion
-	 */
-	protected void addConexion(Conexion conexion) {
-		// TODO - implement modhelado.usuario.Usuario.addConexion
-		throw new UnsupportedOperationException();
+	public Conexion getConexionCon(Usuario usuario) {
+		Conexion result = null;
+		for (Conexion conexion : conexiones) {
+			if (result == null && (conexion.getUsuario1().equals(usuario) || conexion.getUsuario2().equals(usuario))) {
+				result = conexion;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -48,8 +56,8 @@ public class Usuario {
 	 * @param descripcion
 	 */
 	protected void addInteres(DescripcionInteres descripcion) {
-		// TODO - implement modhelado.usuario.Usuario.addInteres
-		throw new UnsupportedOperationException();
+		assert descripcion != null;
+		intereses.add(descripcion);
 	}
 
 	/**
@@ -58,8 +66,9 @@ public class Usuario {
 	 * @param fecha
 	 */
 	public void crearPublicacion(String contenido, String fecha) {
-		// TODO - implement modhelado.usuario.Usuario.crearPublicacion
-		throw new UnsupportedOperationException();
+		assert contenido != null && fecha != null;
+		Publicacion publicacion = new Publicacion(fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
+		GestorBaseDatos.guardar(publicacion.toString());
 	}
 
 	/**
@@ -67,9 +76,9 @@ public class Usuario {
 	 * @param mensaje
 	 * @param chat
 	 */
-	public void enviarMensaje(Mensaje mensaje, Chat chat) {
+	public void enviarMensaje(String mensaje, Chat chat) {
 		assert chat != null && mensaje != null;
-		chat.enviarMensaje(username, mensaje);
+		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
 
 	/**
@@ -77,8 +86,7 @@ public class Usuario {
 	 * @param evento
 	 */
 	public void accederEvento(Evento evento) {
-		// TODO - implement modhelado.usuario.Usuario.accederEvento
-		throw new UnsupportedOperationException();
+		System.out.println(evento.toString());
 	}
 
 	public String getUsername() {
