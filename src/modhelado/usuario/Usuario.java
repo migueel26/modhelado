@@ -7,15 +7,12 @@ import modhelado.tablon.TablonPublicacion;
 import modhelado.tablon.publicacion.Publicacion;
 import modhelado.usuario.conexion.Conexion;
 import modhelado.tablon.evento.Evento;
-import modhelado.chat.Mensaje;
 import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class Usuario {
 	private final TablonEventos tablonEventos;
@@ -43,12 +40,21 @@ public class Usuario {
 		this.tablonEventos = new TablonEventos();
 		this.tablonPublicacion = new TablonPublicacion();
 		this.publicacionesCreadas = new ArrayList<>();
+		this.conexiones = new ArrayList<>();
+	}
+
+	public void addConexion(Conexion conexion) {
+
+	}
+
+	public void crearConexion(Usuario usuario) {
+
 	}
 
 	public Conexion getConexionCon(Usuario usuario) {
 		Conexion result = null;
 		for (Conexion conexion : conexiones) {
-			if (result == null && (conexion.getUsuario1().equals(usuario) || conexion.getUsuario2().equals(usuario))) {
+			if (result == null && (conexion.getEmisor().equals(usuario) || conexion.getReceptor().equals(usuario))) {
 				result = conexion;
 			}
 		}
@@ -59,9 +65,19 @@ public class Usuario {
 	 * 
 	 * @param descripcion
 	 */
-	protected void addInteres(DescripcionInteres descripcion) {
+	public void addInteres(DescripcionInteres descripcion) {
 		assert descripcion != null;
 		intereses.add(descripcion);
+	}
+
+	/**
+	 *
+	 * @param intereses
+	 */
+	protected void addIntereses(List<DescripcionInteres> intereses) {
+		for(DescripcionInteres interes : intereses) {
+			if(!this.intereses.contains(interes)) this.intereses.add(interes);
+		}
 	}
 
 	/**

@@ -2,26 +2,27 @@ package modhelado.usuario.conexion;
 
 import modhelado.usuario.Usuario;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.StringJoiner;
 
 public class Conexion {
 	private EstadoConexion estado;
 	private String fecha;
-	private Usuario usuario1;
-	private Usuario usuario2;
+	private Usuario emisor;
+	private Usuario receptor;
 
 	/**
 	 * 
-	 * @param usuario1
-	 * @param usuario2
+	 * @param emisor
+	 * @param receptor
 	 * @param fecha
 	 */
-	public Conexion(Usuario usuario1, Usuario usuario2, String fecha) {
-		this.usuario1 = usuario1;
-		this.usuario2 = usuario2;
+	public Conexion(Usuario emisor, Usuario receptor, String fecha) {
+		this.emisor = emisor;
+		this.receptor = receptor;
 		this.fecha = fecha;
+
+		emisor.addConexion(this);
+		receptor.addConexion(this);
 	}
 
 	public void cambiarEstado(EstadoConexion estado) {
@@ -30,14 +31,14 @@ public class Conexion {
 	}
 
 	public String conexion() {
-		return "Estado entre " + usuario1 + " y " + usuario2 + ": " + estado.conexion(this);
+		return "Estado entre " + emisor + " y " + receptor + ": " + estado.conexion(this);
 	}
 
-	public void aceptar() {
+	public void aceptar(Usuario usuario) {
 		estado.aceptar(this);
 	}
 
-	public void cancelar() {
+	public void cancelar(Usuario usuario) {
 		estado.cancelar(this);
 	}
 
@@ -53,19 +54,19 @@ public class Conexion {
 		return fecha;
 	}
 
-	public Usuario getUsuario1() {
-		return usuario1;
+	public Usuario getEmisor() {
+		return emisor;
 	}
 
-	public Usuario getUsuario2() {
-		return usuario2;
+	public Usuario getReceptor() {
+		return receptor;
 	}
 
 	@Override
 	public String toString() {
 		StringJoiner result = new StringJoiner(",","Conexion(",")");
-		result.add(usuario1.getUsername());
-		result.add(usuario2.getUsername());
+		result.add(emisor.getUsername());
+		result.add(receptor.getUsername());
 		result.add(fecha);
 		result.add(estado.conexion(this));
 		return result.toString();
@@ -73,13 +74,13 @@ public class Conexion {
 
 	@Override
 	public int hashCode() {
-		return usuario1.hashCode() + usuario2.hashCode();
+		return emisor.hashCode() + receptor.hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Conexion that
-				&& that.usuario1.equals(this.usuario1)
-				&& that.usuario2.equals(this.usuario2);
+				&& that.emisor.equals(this.emisor)
+				&& that.receptor.equals(this.receptor);
 	}
 }
