@@ -1,7 +1,10 @@
 package modhelado.tablon.evento;
 
+import modhelado.GestorBaseDatos;
 import modhelado.interes.Interes;
+import modhelado.usuario.Usuario;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
@@ -13,6 +16,8 @@ public class Evento {
 	private String fecha;
 	private String aforo;
 	private String lugar;
+	private Usuario creador;
+	private List<Usuario> participantes;
 
 	/**
 	 *
@@ -21,12 +26,18 @@ public class Evento {
 	 * @param aforo
 	 * @param lugar
 	 */
-	public Evento(String titulo, String fecha, String aforo, String lugar, List<Interes> intereses) {
+	public Evento(Usuario creador, String titulo, String fecha, String aforo, String lugar, List<Interes> intereses) {
 		this.intereses = intereses;
 		this.titulo = titulo;
 		this.fecha = fecha;
 		this.aforo = aforo;
 		this.lugar = lugar;
+		this.creador = creador;
+
+		this.participantes = new ArrayList<>();
+		participantes.add(creador);
+
+		GestorBaseDatos.guardar(this);
 	}
 
 	public List<Interes> getIntereses() {
@@ -89,6 +100,10 @@ public class Evento {
 
 	public void eliminarInteres(Interes interes) {
 		if(this.intereses.contains(interes)) intereses.remove(interes);
+	}
+
+	public void addUsuario(Usuario usuario) {
+		if(!participantes.contains(usuario)) participantes.add(usuario);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 
 import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,8 @@ public class Usuario {
 	private String correo;
 	private String fechaNacimiento;
 	private boolean vetado;
+	private List<Publicacion> publicacionesCreadas;
+	private List<Evento> eventos;
 
 	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
 		this.username = username;
@@ -39,6 +42,7 @@ public class Usuario {
 
 		this.tablonEventos = new TablonEventos();
 		this.tablonPublicacion = new TablonPublicacion();
+		this.publicacionesCreadas = new ArrayList<>();
 	}
 
 	public Conexion getConexionCon(Usuario usuario) {
@@ -67,8 +71,9 @@ public class Usuario {
 	 */
 	public void crearPublicacion(String contenido, String fecha) {
 		assert contenido != null && fecha != null;
-		Publicacion publicacion = new Publicacion(fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
-		GestorBaseDatos.guardar(publicacion.toString());
+		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
+		GestorBaseDatos.guardar(publicacion);
+		this.publicacionesCreadas.add(publicacion);
 	}
 
 	/**
@@ -86,7 +91,8 @@ public class Usuario {
 	 * @param evento
 	 */
 	public void accederEvento(Evento evento) {
-		System.out.println(evento.toString());
+		evento.addUsuario(this);
+		if(!eventos.contains(evento)) eventos.add(evento);
 	}
 
 	public String getUsername() {

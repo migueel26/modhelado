@@ -2,6 +2,7 @@ package modhelado.tablon.publicacion;
 
 import modhelado.GestorBaseDatos;
 import modhelado.interes.Interes;
+import modhelado.usuario.Usuario;
 
 import java.util.List;
 
@@ -11,17 +12,21 @@ public class Publicacion {
 	private String fecha;
 	private String contenido;
 	private int likes;
+	private Usuario creador;
 
 	/**
 	 * 
 	 * @param fecha
 	 * @param contenido
 	 */
-	public Publicacion(String fecha, String contenido, List<Interes> intereses) {
+	public Publicacion(Usuario creador, String fecha, String contenido, List<Interes> intereses) {
 		this.intereses = intereses;
 		this.fecha = fecha;
 		this.contenido = contenido;
 		this.likes = 0;
+		this.creador = creador;
+
+		GestorBaseDatos.guardar(this);
 	}
 
 	public void calcularLikes() {
@@ -69,10 +74,4 @@ public class Publicacion {
 	public void eliminarInteres(Interes interes) {
 		if(this.intereses.contains(interes)) intereses.remove(interes);
 	}
-
-	public void eliminarPublicacion() {
-		// TODO - implement modhelado.tablon.publicacion.Publicacion.eliminarPublicacion
-		throw new UnsupportedOperationException();
-	}
-
 }
