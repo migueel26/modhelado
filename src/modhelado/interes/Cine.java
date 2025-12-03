@@ -1,17 +1,19 @@
 package modhelado.interes;
 
 public class Cine extends Interes {
+	private static Cine cine;
 
-	private Cine cine;
+	private Cine() {}
 
-	private Cine() {
-		// TODO - implement modhelado.interes.Cine.modhelado.interes.Cine
-		throw new UnsupportedOperationException();
+	public static Cine cine() {
+		if (cine == null) {
+			cine = new Cine();
+		}
+		return cine;
 	}
 
-	public Cine cine() {
-		// TODO - implement modhelado.interes.Cine.cine
-		throw new UnsupportedOperationException();
+	@Override
+	public String interes() {
+		return "Cine";
 	}
-
 }
