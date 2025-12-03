@@ -20,7 +20,7 @@ public class ChatGrupal extends Chat {
 	public void addUsuario(Usuario usuario) {
 		if(!this.usuarios.contains(usuario)){
 			this.usuarios.add(usuario);
-			System.out.println(usuario.getUserName() + " se ha unido al grupo");
+			System.out.println(usuario.getUsername() + " se ha unido al grupo");
 		}else{
 			System.out.println("El usuario ya está en el grupo");
 		}
