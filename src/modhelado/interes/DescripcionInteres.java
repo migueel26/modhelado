@@ -3,7 +3,7 @@ package modhelado.interes;
 import modhelado.usuario.Usuario;
 
 public class DescripcionInteres {
-	private String texto;
+	private String descripcion;
 	private Usuario usuario;
 	private Interes interes;
 
@@ -12,9 +12,10 @@ public class DescripcionInteres {
 	 * @param texto
 	 * @param usuario
 	 */
-	public DescripcionInteres(String texto, Usuario usuario) {
-		// TODO - implement modhelado.interes.DescripcionInteres.modhelado.interes.DescripcionInteres
-		throw new UnsupportedOperationException();
+	public DescripcionInteres(String descripcion, Usuario usuario, Interes interes) {
+		this.descripcion = descripcion;
+		this.usuario = usuario;
+		this.interes = interes;
 	}
 
 	/**
@@ -22,17 +23,12 @@ public class DescripcionInteres {
 	 * @param texto
 	 */
 	public void setDescripcion(String texto) {
-		// TODO - implement modhelado.interes.DescripcionInteres.setDescripcion
-		throw new UnsupportedOperationException();
+		assert texto != null;
+		this.descripcion = texto;
 	}
 
 	public String getDescripcion() {
-		// TODO - implement modhelado.interes.DescripcionInteres.getDescripcion
-		throw new UnsupportedOperationException();
-	}
-
-	public String getTexto() {
-		return texto;
+		return descripcion;
 	}
 
 	public Usuario getUsuario() {

@@ -1,17 +1,19 @@
 package modhelado.interes;
 
 public class Deporte extends Interes {
+	private static Deporte deporte;
 
-	private Deporte deporte;
+	private Deporte() {}
 
-	private Deporte() {
-		// TODO - implement modhelado.interes.Deporte.modhelado.interes.Deporte
-		throw new UnsupportedOperationException();
+	public static Deporte deporte() {
+		if (deporte == null) {
+			deporte = new Deporte();
+		}
+		return deporte;
 	}
 
-	public Deporte deporte() {
-		// TODO - implement modhelado.interes.Deporte.deporte
-		throw new UnsupportedOperationException();
+	@Override
+	public String interes() {
+		return "Deporte";
 	}
-
 }

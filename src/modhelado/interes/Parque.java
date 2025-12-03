@@ -1,17 +1,19 @@
 package modhelado.interes;
 
 public class Parque extends Interes {
+	private static Parque parque;
 
-	private Parque parque;
-
-	private void Paque() {
-		// TODO - implement modhelado.interes.Parque.Paque
-		throw new UnsupportedOperationException();
-	}
+	private Parque() {}
 
 	public Parque parque() {
-		// TODO - implement modhelado.interes.Parque.parque
-		throw new UnsupportedOperationException();
+		if (parque == null) {
+			parque = new Parque();
+		}
+		return parque;
 	}
 
+	@Override
+	public String interes() {
+		return "Parque";
+	}
 }
