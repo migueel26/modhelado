@@ -85,9 +85,10 @@ public class Usuario {
 	 * @param contenido
 	 * @param fecha
 	 */
-	public void crearPublicacion(String contenido, String fecha) {
+	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
-		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
+		//Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
+		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
@@ -102,6 +103,17 @@ public class Usuario {
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
 
+
+	/**
+	 *
+	 * @param evento
+	 */
+	public void crearEvento(Evento evento) {
+		evento.addUsuario(this);
+		if(!eventos.contains(evento)) eventos.add(evento);
+	}
+
+
 	/**
 	 * 
 	 * @param evento
@@ -110,6 +122,12 @@ public class Usuario {
 		evento.addUsuario(this);
 		if(!eventos.contains(evento)) eventos.add(evento);
 	}
+
+
+	public TablonEventos getTablonEventos() {return tablonEventos;}
+	public TablonPublicacion getTablonPublicacion() {return tablonPublicacion;}
+
+
 
 	public String getUsername() {
 		return username;

@@ -5,7 +5,7 @@ public class Parque extends Interes {
 
 	private Parque() {}
 
-	public Parque parque() {
+	public static Parque parque() {
 		if (parque == null) {
 			parque = new Parque();
 		}
