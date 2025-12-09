@@ -45,7 +45,6 @@ public class Main {
         usuario2.crearPublicacion("Nueva película de Marvel!!", "10-12-2025", List.of(cine()));
         usuario3.crearPublicacion("Nuevo lanzamiento de disco!", "14-12-2025", List.of(musica()));
 
-
         //Acceder a los tablones del usuario 1
         System.out.println("Tablones del usuario1:");
         usuario1.getTablonPublicacion().ver();

@@ -1,6 +1,8 @@
 package modhelado.tablon.evento;
 
 import modhelado.GestorBaseDatos;
+import modhelado.chat.Chat;
+import modhelado.chat.ChatGrupal;
 import modhelado.interes.Interes;
 import modhelado.usuario.Usuario;
 
@@ -18,6 +20,7 @@ public class Evento {
 	private String lugar;
 	private Usuario creador;
 	private List<Usuario> participantes;
+	private Chat chatGrupal;
 
 	/**
 	 *
@@ -33,6 +36,7 @@ public class Evento {
 		this.aforo = aforo;
 		this.lugar = lugar;
 		this.creador = creador;
+		this.chatGrupal = new ChatGrupal(creador, new Date().toString());
 
 		this.participantes = new ArrayList<>();
 		participantes.add(creador);

@@ -19,8 +19,6 @@ public class TablonEventos extends Tablon {
 		this.eventos = new ArrayList<>();
 	}
 
-
-
 	@Override
 	public void ver() {
 		personalizar(intereses);
@@ -51,6 +49,4 @@ public class TablonEventos extends Tablon {
 			}
 		}
 	}
-
-	//Métodos
 }
