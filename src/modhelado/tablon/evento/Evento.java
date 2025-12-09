@@ -14,7 +14,7 @@ public class Evento {
 	private List<Interes> intereses;
 	private String titulo;
 	private String fecha;
-	private String aforo;
+	private Integer aforo;
 	private String lugar;
 	private Usuario creador;
 	private List<Usuario> participantes;
@@ -26,7 +26,7 @@ public class Evento {
 	 * @param aforo
 	 * @param lugar
 	 */
-	public Evento(Usuario creador, String titulo, String fecha, String aforo, String lugar, List<Interes> intereses) {
+	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
 		this.intereses = intereses;
 		this.titulo = titulo;
 		this.fecha = fecha;
@@ -64,11 +64,11 @@ public class Evento {
 		this.fecha = fecha;
 	}
 
-	public String getAforo() {
+	public Integer getAforo() {
 		return aforo;
 	}
 
-	public void setAforo(String aforo) {
+	public void setAforo(Integer aforo) {
 		this.aforo = aforo;
 	}
 
