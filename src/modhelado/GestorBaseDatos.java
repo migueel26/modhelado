@@ -105,14 +105,30 @@ public class GestorBaseDatos {
     	{
     		// hacemos que redis gestione los ids de los eventos
     		eventoId = jedis.incr("evento:next_id");
-    		String claveEvento = "eveto:" + eventoId;
+    		String eventKey = "eveto:" + eventoId;
     		
     		Map <String, String> eventData = new HashMap<>();
     		eventData.put("id", String.valueOf(eventoId));
     		eventData.put("creador_nombre", evento.getCreador().getUsername());
-    		eventData.put("id", String.valueOf(eventoId));
-    		eventData.put("id", String.valueOf(eventoId));
+    		eventData.put("titulo", evento.getTitulo());
+    		eventData.put("fecha", evento.getFecha());
+    		eventData.put("aforo", String.valueOf(evento.getAforo()));
+    		eventData.put("lugar", evento.getFecha());
     		
+    		jedis.hset(eventKey, eventData);
+    		
+    		String claveEventosCreados = "usuario:eventos_creados:" + evento.getCreador().getUsername();
+    		jedis.sadd(claveEventosCreados, String.valueOf(eventoId));
+    		
+    		
+    		String claveInteresesEvento = "evento:intereses:" + eventoId;
+    		String[] intereses = evento.getIntereses().stream()
+    				.map(Interes::interes)
+    				.toArray(String[]::new);
+    	
+    		if (intereses.length > 0 ) {
+    			jedis.sadd(claveInteresesEvento, intereses);
+    		}
     	}
     	
     }
