@@ -38,6 +38,7 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 		this.vetado = false;
 
+		this.intereses = new ArrayList<>();
 		this.tablonEventos = new TablonEventos();
 		this.tablonPublicacion = new TablonPublicacion();
 		this.publicacionesCreadas = new ArrayList<>();
@@ -102,9 +103,9 @@ public class Usuario {
 	 * 
 	 * @param descripcion
 	 */
-	public void addInteres(DescripcionInteres descripcion) {
-		assert descripcion != null;
-		intereses.add(descripcion);
+	public void addInteres(Interes interes, String descripcion) {
+		assert interes != null && descripcion != null;
+		intereses.add(new DescripcionInteres(descripcion, this, interes));
 	}
 
 	/**

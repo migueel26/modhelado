@@ -19,6 +19,7 @@ public class TablonPublicacion extends Tablon {
 
 	@Override
 	public void ver() {
+		personalizar(intereses);
 		System.out.println("Publicaciones para ti" + "\n");
 		for(Publicacion publicacion : publicaciones){
 			System.out.println(publicacion);

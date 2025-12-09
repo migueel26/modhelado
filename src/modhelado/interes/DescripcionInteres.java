@@ -9,7 +9,7 @@ public class DescripcionInteres {
 
 	/**
 	 * 
-	 * @param texto
+	 * @param descripcion
 	 * @param usuario
 	 */
 	public DescripcionInteres(String descripcion, Usuario usuario, Interes interes) {
