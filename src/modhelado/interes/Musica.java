@@ -1,19 +1,19 @@
 package modhelado.interes;
 
 public class Musica extends Interes {
-	private static Musica Musica;
+	private static Musica musica;
 
 	private Musica() {}
 
 	public static Musica musica() {
-		if (Musica == null) {
-			Musica = new Musica();
+		if (musica == null) {
+			musica = new Musica();
 		}
-		return Musica;
+		return musica;
 	}
 
 	@Override
 	public String interes() {
-		return "Musica";
+		return "Música";
 	}
 }
