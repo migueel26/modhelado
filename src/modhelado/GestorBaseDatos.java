@@ -5,12 +5,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import modhelado.interes.Interes;
 import modhelado.tablon.evento.Evento;
 import modhelado.tablon.publicacion.Publicacion;
 import modhelado.usuario.Usuario;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
+import redis.clients.jedis.Response;
 
 public class GestorBaseDatos {
 	
@@ -90,9 +93,6 @@ public class GestorBaseDatos {
     	}
     }
     
-    
-    
-    
     public static void guardarEvento(Evento evento) {
     	long eventoId;
     	
@@ -163,10 +163,74 @@ public class GestorBaseDatos {
     	
     }
     
-    public static ArrayList<Evento> verEventos(ArrayList<Interes> intereses) {
-    	return new ArrayList<Evento>();
+    public static Evento[] verEventos(ArrayList<Interes> intereses) {
+        ArrayList<Evento> eventosEncontrados = new ArrayList<>();
+        
+        if (intereses == null || intereses.isEmpty()) {
+            return eventosEncontrados.toArray(new Evento[0]);
+        }
+
+        
+        try (Jedis jedis = getJedis()) {
+
+            String[] clavesIntereses = intereses.stream()
+                .map(i -> "interes:" + i.interes())
+                .toArray(String[]::new);
+
+            //evitar duplicados
+            Set<String> idEventosUnicos = jedis.sunion(clavesIntereses);
+            
+            if (idEventosUnicos.isEmpty()) {
+                return eventosEncontrados.toArray(new Evento[0]);
+            }
+
+
+            List<Response<Map<String, String>>> responses = new ArrayList<>();
+            Pipeline pipeline = jedis.pipelined();
+            
+            
+            for (String id : idEventosUnicos) {
+                responses.add(pipeline.hgetAll("evento:" + id)); 
+            }
+            
+            pipeline.sync(); 
+
+
+            for (Response<Map<String, String>> response : responses) {
+                Map<String, String> data = response.get();
+                if (data != null && !data.isEmpty()) {
+
+                    Evento evento = mapHashToEvento(data); 
+                    if (evento != null) {
+                        eventosEncontrados.add(evento);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        	
+        }
+        
+        return eventosEncontrados.toArray(new Evento[eventosEncontrados.size()]);
     }
     
+    private static Evento mapHashToEvento(Map<String, String> data) {
+        Evento evento = null;
+    	try {
+             
+             String titulo = data.get("titulo");
+             String fecha = data.get("fecha");
+             Integer aforo = Integer.parseInt(data.get("aforo"));
+             String lugar = data.get("lugar");
+             String creadorUsername = data.get("creador_nombre");
+             
+             evento = new Evento(null, titulo, fecha, aforo, lugar, new ArrayList<>());
+             
+        } catch (Exception e) {
+             System.out.println("Fallo al mapear Hash a Evento"); 
+             return null;
+        }
+        return evento;
+    }
     
 }
 
