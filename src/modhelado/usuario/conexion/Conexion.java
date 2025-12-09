@@ -16,10 +16,11 @@ public class Conexion {
 	 * @param receptor
 	 * @param fecha
 	 */
-	public Conexion(Usuario emisor, Usuario receptor, String fecha) {
+	public Conexion(Usuario emisor, Usuario receptor, String fecha, EstadoConexion estado) {
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.fecha = fecha;
+		this.estado = estado;
 
 		emisor.addConexion(this);
 		receptor.addConexion(this);
@@ -34,11 +35,11 @@ public class Conexion {
 		return "Estado entre " + emisor + " y " + receptor + ": " + estado.conexion(this);
 	}
 
-	public void aceptar(Usuario usuario) {
+	public void aceptar() {
 		estado.aceptar(this);
 	}
 
-	public void cancelar(Usuario usuario) {
+	public void cancelar() {
 		estado.cancelar(this);
 	}
 

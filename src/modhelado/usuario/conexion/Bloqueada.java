@@ -11,12 +11,14 @@ public class Bloqueada implements EstadoConexion {
     }
     @Override
     public void aceptar(Conexion conexion) {
-
+        assert conexion != null;
+        throw new IllegalArgumentException("ERROR: No se puede aceptar a una persona bloqueada");
     }
 
     @Override
     public void cancelar(Conexion conexion) {
-
+        assert conexion != null;
+        throw new IllegalArgumentException("ERROR: No se puede aceptar a una persona bloqueada");
     }
 
     @Override
