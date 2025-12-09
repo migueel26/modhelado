@@ -37,6 +37,7 @@ public class Publicacion {
 	}
 
 	public int getLikes() {return likes;}
+	public void addLike() {this.likes += 1;}
 
 	public String getContenido() {return this.contenido;}
 	public void actualizarContenido(String contenido) {this.contenido = contenido;}

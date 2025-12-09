@@ -1,6 +1,7 @@
 package modhelado.usuario;
 
 import modhelado.GestorBaseDatos;
+import modhelado.chat.ChatPrivado;
 import modhelado.interes.Interes;
 import modhelado.tablon.TablonEventos;
 import modhelado.tablon.TablonPublicacion;
@@ -70,6 +71,7 @@ public class Usuario {
 
 	//GESTIÓN CONEXIONES
 	public void addConexion(Conexion conexion) {
+		//TODO: para qué está este método??
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
 			conexiones.add(conexion);
@@ -79,7 +81,7 @@ public class Usuario {
 
 	public void enviarSolicitud(Usuario usuario) {
 		// Constraint: ConexionUnicaParUsuarios
-		assert buscarConexion(usuario).isEmpty();
+		assert buscarConexion(usuario).isEmpty() && !vetado;
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -182,14 +184,19 @@ public class Usuario {
 	public List<Publicacion> getPublicacionesCreadas(){return publicacionesCreadas;}
 
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
-		assert contenido != null && fecha != null;
+		assert !vetado && contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		GestorBaseDatos.guardarPublicacion(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 
-	public void likePublicacion(Publicacion publicacion) {
-		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
+	public void likePublicacion(Long idPublicacion) {
+		assert !vetado && idPublicacion != null;
+		for (Publicacion publicacion : getTablonPublicacion().getTablonPublicacion()) {
+			if(publicacion.getID()==idPublicacion) {
+				publicacion.addLike();
+			}
+		}
 	}
 
 
@@ -207,10 +214,26 @@ public class Usuario {
 	//GESTIÓN CHATS
 	public List<Chat> getChats(){return chats;}
 
+	/*
 	public void enviarMensaje(String mensaje, Chat chat) {
 		assert chat != null && mensaje != null;
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
+	 */
 
+	public void crearChatPrivado(Usuario usuarioDestino) {
+		assert !vetado && usuarioDestino != null;
+		Chat nuevo = new ChatPrivado(this, usuarioDestino, new Date().toString());
+		chats.add(nuevo);
+	}
+
+	public void enviarMensaje(Long id, String mensaje) {
+		assert !vetado && id != null && mensaje != null;
+		for (Chat chat : chats) {
+			if(chat.getID()==id) {
+				chat.enviarMensaje(this, new Date().toString(), mensaje);
+			}
+		}
+	}
 
 }
