@@ -33,6 +33,8 @@ public class TablonPublicacion extends Tablon {
 	public void personalizar(List<Interes> intereses) {
 		// Debe devolver una lista de publicaciones de tipo Publicacion
 		List<Object> query = GestorBaseDatos.consultar("SELECT publicacion FROM publicaciones WITH intereses");
+		// Constraint: AlMenosUnInteres no hace falta pues se seleccionan desde la Base de Datos.
+
 		for (Object obj : query) {
 			if (obj instanceof Publicacion) {
 				this.publicaciones.add((Publicacion) obj);

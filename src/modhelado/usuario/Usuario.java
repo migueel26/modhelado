@@ -16,21 +16,27 @@ import java.beans.PersistenceDelegate;
 import java.util.*;
 
 public class Usuario {
-	private final TablonEventos tablonEventos;
-	private final TablonPublicacion tablonPublicacion;
-	private List<Conexion> conexiones;
-	private List<Chat> chats;
-	private List<DescripcionInteres> intereses;
 	private String username;
 	private String nombre;
 	private String apellidos;
 	private String correo;
 	private String fechaNacimiento;
 	private boolean vetado;
-	private List<Publicacion> publicacionesCreadas;
-	private List<Evento> eventos;
+	private List<DescripcionInteres> intereses;
 
+	private List<Conexion> conexiones;
+
+	private List<Evento> eventos;
+	private List<Publicacion> publicacionesCreadas;
+	private final TablonEventos tablonEventos;
+	private final TablonPublicacion tablonPublicacion;
+
+	private List<Chat> chats;
+
+
+	//CONSTRUCTOR
 	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
+		assert GestorBaseDatos.consultar("SELECT username FROM USUARIOS WHERE username = '" + username + "'").isEmpty();
 		this.username = username;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -49,6 +55,19 @@ public class Usuario {
 		this.chats = new ArrayList<>();
 	}
 
+
+
+
+	//GESTIÓN USUARIO
+
+	public void setVetado(boolean vetado) {
+		this.vetado = vetado;
+	}
+
+
+
+
+	//GESTIÓN CONEXIONES
 	public void addConexion(Conexion conexion) {
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
@@ -57,7 +76,8 @@ public class Usuario {
 	}
 
 	public void enviarSolicitud(Usuario usuario) {
-		assert buscarConexion(usuario).isEmpty();	//Si existe la conexión no se envía de nuevo
+		// Constraint: ConexionUnicaParUsuarios
+		assert buscarConexion(usuario).isEmpty();
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -75,6 +95,7 @@ public class Usuario {
 	public void bloquearConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
 		if (!conexion.isEmpty()) {
+			// Constraint: ConexionUnicaParUsuarios
 			conexion.get().bloquear();
 		} else {
 			new Conexion(this, usuario, new Date().toString(), Bloqueada.bloqueada());
@@ -104,10 +125,10 @@ public class Usuario {
 		return conexion;
 	}
 
-	/**
-	 * 
-	 * @param descripcion
-	 */
+
+
+
+	//GESTIÓN INTERESES
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
 		intereses.add(new DescripcionInteres(descripcion, this, interes));
@@ -115,62 +136,80 @@ public class Usuario {
 		tablonPublicacion.addInteres(interes);
 	}
 
-	/**
-	 *
-	 * @param intereses
-	 */
+	//TODO: Por qué está esta clase??
 	protected void addIntereses(List<DescripcionInteres> intereses) {
-		for(DescripcionInteres interes : intereses) {
+		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
 			tablonPublicacion.addInteres(interes.getInteres());
 			tablonEventos.addInteres(interes.getInteres());
 		}
 	}
 
-	/**
-	 * 
-	 * @param contenido
-	 * @param fecha
-	 */
+
+
+
+	//GESTIÓN EVENTOS
+	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
+		// Constraint: UsuarioVetado
+		assert !vetado;
+
+		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
+		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
+		GestorBaseDatos.guardar(evento);
+		eventos.add(evento);
+
+		//TODO: se crea automáticamente un chat grupal (se añade el chat a la lista de chats del usuario creador)
+	}
+
+	public void accederEvento(Evento evento) {
+		// Constraint: UsuarioVetado
+		assert !vetado;
+
+		evento.addUsuario(this);
+		if(!eventos.contains(evento)) eventos.add(evento);
+
+		//TODO: se añade el chat del evento a la lista de chats del usuario que se ha unido
+	}
+
+
+
+
+	//GESTIÓN PUBLICACIONES
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
+		//TODO: primera o segunda opción para crear la publicación?
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 
-	/**
-	 * 
-	 * @param mensaje
-	 * @param chat
-	 */
-	public void enviarMensaje(String mensaje, Chat chat) {
-		assert chat != null && mensaje != null;
-		chat.enviarMensaje(this, new Date().toString(), mensaje);
-	}
-
-	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
-		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
-		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
-		GestorBaseDatos.guardar(evento);
-		eventos.add(evento);
-	}
-
-	/**
-	 * 
-	 * @param evento
-	 */
-	public void accederEvento(Evento evento) {
-		evento.addUsuario(this);
-		if(!eventos.contains(evento)) eventos.add(evento);
+	public void likePublicacion(Integer idPublicacion) {
+		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
 	}
 
 
+
+
+	//GESTIÓN TABLONES
 	public TablonEventos getTablonEventos() {return tablonEventos;}
+
 	public TablonPublicacion getTablonPublicacion() {return tablonPublicacion;}
 
 	public String getUsername() {
 		return username;
 	}
+
+
+	//GESTIÓN CHATS
+	public void iniciarChatPrivado(Usuario usuario) {
+		//TODO: El usuario inicia un chat privado (se le asocia a ambos usuarios ese chat)
+	}
+
+	public void enviarMensaje(String mensaje, Chat chat) {
+		//TODO: Pasarle como parámetros el id del chat y el mensaje??
+		assert chat != null && mensaje != null;
+		chat.enviarMensaje(this, new Date().toString(), mensaje);
+	}
+
 
 }

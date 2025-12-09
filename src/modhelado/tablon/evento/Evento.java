@@ -107,7 +107,17 @@ public class Evento {
 	}
 
 	public void addUsuario(Usuario usuario) {
+		// Constraint: ParticipantesNoSuperaAforo
+		assert participantes.size() < aforo;
+
 		if(!participantes.contains(usuario)) participantes.add(usuario);
+	}
+
+	public void eliminarUsuario(Usuario usuario) {
+		// Constraint: CreadorEventoTambienAsistente
+		assert !usuario.equals(creador);
+
+		participantes.remove(usuario);
 	}
 
 	@Override

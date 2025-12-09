@@ -17,6 +17,11 @@ public class Conexion {
 	 * @param fecha
 	 */
 	public Conexion(Usuario emisor, Usuario receptor, String fecha, EstadoConexion estado) {
+		// Constraint: ConexionUsuariosDistintos
+		assert !emisor.equals(receptor);
+		// Constraint: AntiguedadConEstadoPendiente
+		assert estado.equals(Aceptada.aceptada()) || fecha == null;
+
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.fecha = fecha;
