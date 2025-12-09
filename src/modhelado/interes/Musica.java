@@ -1,19 +1,19 @@
 package modhelado.interes;
 
-public class Parque extends Interes {
-	private static Parque parque;
+public class Musica extends Interes {
+	private static Musica Musica;
 
-	private Parque() {}
+	private Musica() {}
 
-	public static Parque parque() {
-		if (parque == null) {
-			parque = new Parque();
+	public static Musica musica() {
+		if (Musica == null) {
+			Musica = new Musica();
 		}
-		return parque;
+		return Musica;
 	}
 
 	@Override
 	public String interes() {
-		return "Parque";
+		return "Musica";
 	}
 }

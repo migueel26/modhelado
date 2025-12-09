@@ -1,6 +1,5 @@
 package modhelado;
 
-import modhelado.interes.Cine;
 import modhelado.interes.DescripcionInteres;
 import modhelado.interes.Interes;
 import modhelado.tablon.evento.Evento;
@@ -12,9 +11,10 @@ import java.util.List;
 
 import static modhelado.interes.Cine.cine;
 import static modhelado.interes.Deporte.deporte;
-import static modhelado.interes.Parque.parque;
+import static modhelado.interes.Musica.musica;
 
 public class Main {
+
     public static void main(String[] args) {
         //Crear varios usuarios
         Usuario usuario1 = new Usuario("mariaa1", "María", "López","maria@gmail.com","01-01-2005");
@@ -39,11 +39,11 @@ public class Main {
 
         //Crear eventos
         usuario1.crearEvento("Museo del cine", "20-04-2026", 10, "Museo cine Málaga", List.of(cine()));
-        usuario4.crearEvento("Taller de cerámica", "05-02-2026", 6, "Avenida Andalucía", List.of(parque()));
+        usuario4.crearEvento("Concierto música clásica", "05-02-2026", 6, "Avenida Andalucía", List.of(musica()));
 
         //Crear publicaciones
         usuario2.crearPublicacion("Nueva película de Marvel!!", "10-12-2025", List.of(cine()));
-        usuario3.crearPublicacion("Descubrimiento científico", "14-12-2025", List.of(parque()));
+        usuario3.crearPublicacion("Nuevo lanzamiento de disco!", "14-12-2025", List.of(musica()));
 
 
         //Acceder a los tablones del usuario 1
