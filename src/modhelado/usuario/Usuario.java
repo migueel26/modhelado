@@ -157,8 +157,7 @@ public class Usuario {
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
 		GestorBaseDatos.guardar(evento);
 		eventos.add(evento);
-
-		//TODO: se crea automáticamente un chat grupal (se añade el chat a la lista de chats del usuario creador)
+		chats.add(evento.getChat());
 	}
 
 	public void accederEvento(Evento evento) {
@@ -166,9 +165,10 @@ public class Usuario {
 		assert !vetado;
 
 		evento.addUsuario(this);
-		if(!eventos.contains(evento)) eventos.add(evento);
-
-		//TODO: se añade el chat del evento a la lista de chats del usuario que se ha unido
+		if(!eventos.contains(evento)) {
+			eventos.add(evento);
+			chats.add(evento.getChat());
+		}
 	}
 
 
@@ -177,13 +177,12 @@ public class Usuario {
 	//GESTIÓN PUBLICACIONES
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
-		//TODO: primera o segunda opción para crear la publicación?
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 
-	public void likePublicacion(Integer idPublicacion) {
+	public void likePublicacion(Publicacion publicacion) {
 		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
 	}
 

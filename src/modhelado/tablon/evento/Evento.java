@@ -20,7 +20,7 @@ public class Evento {
 	private String lugar;
 	private Usuario creador;
 	private List<Usuario> participantes;
-	private Chat chatGrupal;
+	private ChatGrupal chatGrupal;
 
 	/**
 	 *
@@ -40,17 +40,8 @@ public class Evento {
 
 		this.participantes = new ArrayList<>();
 		participantes.add(creador);
-
-		GestorBaseDatos.guardar(this);
 	}
 
-	public List<Interes> getIntereses() {
-		return intereses;
-	}
-
-	public void setIntereses(List<Interes> intereses) {
-		this.intereses = intereses;
-	}
 
 	public String getTitulo() {
 		return titulo;
@@ -84,18 +75,21 @@ public class Evento {
 		this.lugar = lugar;
 	}
 
-	/**
-	 * 
-	 * @param interes
-	 */
+
+	//GESTION INTERESES
+
+	public List<Interes> getIntereses() {
+		return intereses;
+	}
+
+	public void setIntereses(List<Interes> intereses) {
+		this.intereses = intereses;
+	}
+
 	public void addInteres(Interes interes) {
 		if(!intereses.contains(interes)) intereses.add(interes);
 	}
 
-	/**
-	 *
-	 * @param intereses
-	 */
 	protected void addIntereses(List<Interes> intereses) {
 		for(Interes interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
@@ -106,11 +100,17 @@ public class Evento {
 		if(this.intereses.contains(interes)) intereses.remove(interes);
 	}
 
+
+	// GESTION USUARIOS
+
 	public void addUsuario(Usuario usuario) {
 		// Constraint: ParticipantesNoSuperaAforo
 		assert participantes.size() < aforo;
 
-		if(!participantes.contains(usuario)) participantes.add(usuario);
+		if(!participantes.contains(usuario)) {
+			participantes.add(usuario);
+			chatGrupal.addUsuario(usuario);
+		}
 	}
 
 	public void eliminarUsuario(Usuario usuario) {
@@ -118,6 +118,11 @@ public class Evento {
 		assert !usuario.equals(creador);
 
 		participantes.remove(usuario);
+	}
+
+	// GESTION CHAT GRUPAL
+	public Chat getChat(){
+		return chatGrupal;
 	}
 
 	@Override

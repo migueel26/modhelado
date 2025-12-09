@@ -25,8 +25,6 @@ public class Publicacion {
 		this.contenido = contenido;
 		this.likes = 0;
 		this.creador = creador;
-
-		GestorBaseDatos.guardar(this);
 	}
 
 	public void calcularLikes() {
