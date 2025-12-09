@@ -19,15 +19,15 @@ public class GestorBaseDatos {
         return Collections.emptyList();
     }
     
-    public static void añadirUsuario(String nombre, String contraseña) {
+    public static void aÃ±adirUsuario(String nombre, String contraseÃ±a) {
     	
     }
     
-    public static void iniciarSesion(String nombre, String contraseña) {
+    public static void iniciarSesion(String nombre, String contraseÃ±a) {
     	
     }
     
-    public static void añadirEvento(Usuario usuario, Evento evento) {
+    public static void aÃ±adirEvento(Usuario usuario, Evento evento) {
     	
     }
     public static void guardarEvento(Evento evento) {
