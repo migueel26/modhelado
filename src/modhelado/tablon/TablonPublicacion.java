@@ -30,7 +30,6 @@ public class TablonPublicacion extends Tablon {
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
-
 		// Debe devolver una lista de publicaciones de tipo Publicacion
 		List<Object> query = GestorBaseDatos.consultar("SELECT publicacion FROM publicaciones WITH intereses");
 		for (Object obj : query) {
