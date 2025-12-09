@@ -19,6 +19,8 @@ public class TablonEventos extends Tablon {
 		this.eventos = new ArrayList<>();
 	}
 
+
+
 	@Override
 	public void ver() {
 		personalizar(intereses);
@@ -31,6 +33,10 @@ public class TablonEventos extends Tablon {
 	@Override
 	public int getSize() {return eventos.size();}
 
+	public void addEvento(Evento evento){
+		if (!eventos.contains(evento)) eventos.add(evento);
+	}
+
 	@Override
 	public void personalizar(List<Interes> intereses) {
 
@@ -39,10 +45,12 @@ public class TablonEventos extends Tablon {
 
 		for (Object obj : query) {
 			if (obj instanceof Evento) {
-				this.eventos.add((Evento) obj);
+				addEvento((Evento) obj);
 			} else {
 				System.err.println("Advertencia: El objeto de la BD no es un Evento.");
 			}
 		}
 	}
+
+	//Métodos
 }

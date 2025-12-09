@@ -57,6 +57,7 @@ public class Usuario {
 	}
 
 	public void enviarSolicitud(Usuario usuario) {
+		assert buscarConexion(usuario).isEmpty();	//Si existe la conexión no se envía de nuevo
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -110,6 +111,8 @@ public class Usuario {
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
 		intereses.add(new DescripcionInteres(descripcion, this, interes));
+		tablonEventos.addInteres(interes);
+		tablonPublicacion.addInteres(interes);
 	}
 
 	/**
@@ -119,6 +122,8 @@ public class Usuario {
 	protected void addIntereses(List<DescripcionInteres> intereses) {
 		for(DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
+			tablonPublicacion.addInteres(interes.getInteres());
+			tablonEventos.addInteres(interes.getInteres());
 		}
 	}
 
