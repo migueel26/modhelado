@@ -1,5 +1,6 @@
 package modhelado.usuario.conexion;
 
+import modhelado.chat.ChatPrivado;
 import modhelado.usuario.Usuario;
 
 import java.util.StringJoiner;
@@ -9,6 +10,7 @@ public class Conexion {
 	private String fecha;
 	private Usuario emisor;
 	private Usuario receptor;
+	private ChatPrivado chat;
 
 	/**
 	 * 
@@ -26,6 +28,7 @@ public class Conexion {
 		this.receptor = receptor;
 		this.fecha = fecha;
 		this.estado = estado;
+		this.chat = new ChatPrivado(emisor, receptor, fecha);
 
 		emisor.addConexion(this);
 		receptor.addConexion(this);
@@ -67,6 +70,7 @@ public class Conexion {
 	public Usuario getReceptor() {
 		return receptor;
 	}
+	public ChatPrivado getChat(){return chat;}
 
 	@Override
 	public String toString() {

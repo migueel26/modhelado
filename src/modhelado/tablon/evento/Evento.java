@@ -15,6 +15,7 @@ public class Evento {
 
 	private List<Interes> intereses;
 	private long ID;
+	protected static long contadorIDs = 0;
 	private String titulo;
 	private String fecha;
 	private Integer aforo;
@@ -38,51 +39,30 @@ public class Evento {
 		this.lugar = lugar;
 		this.creador = creador;
 		this.chatGrupal = new ChatGrupal(creador, new Date().toString());
+		this.ID = contadorIDs++;
 
 		this.participantes = new ArrayList<>();
 		participantes.add(creador);
 	}
 
 
-	public String getTitulo() {
-		return titulo;
-	}
+	public String getTitulo() {return titulo;}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+	public void setTitulo(String titulo) {this.titulo = titulo;}
 
-	public String getFecha() {
-		return fecha;
-	}
+	public String getFecha() {return fecha;}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
+	public void setFecha(String fecha) {this.fecha = fecha;}
 
-	public Integer getAforo() {
-		return aforo;
-	}
+	public Integer getAforo() {return aforo;}
 
-	public void setAforo(Integer aforo) {
-		this.aforo = aforo;
-	}
+	public void setAforo(Integer aforo) {this.aforo = aforo;}
 
-	public String getLugar() {
-		return lugar;
-	}
+	public String getLugar() {return lugar;}
 
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
-	}
+	public void setLugar(String lugar) {this.lugar = lugar;}
 	
-	public long getID() {
-		return this.ID;
-	}
-	
-	public void setID(long ID) {
-		this.ID = ID;
-	}
+	public long getID() {return this.ID;}
 
 
 	//GESTION INTERESES

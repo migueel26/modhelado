@@ -43,15 +43,13 @@ public class Usuario {
 		this.correo = correo;
 		this.fechaNacimiento = fechaNacimiento;
 		this.vetado = false;
+
 		this.intereses = new ArrayList<>();
-
 		this.conexiones = new ArrayList<>();
-
 		this.eventos = new ArrayList<>();
 		this.tablonEventos = new TablonEventos();
 		this.tablonPublicacion = new TablonPublicacion();
 		this.publicacionesCreadas = new ArrayList<>();
-
 		this.chats = new ArrayList<>();
 	}
 
@@ -59,11 +57,14 @@ public class Usuario {
 
 
 	//GESTIÓN USUARIO
-
+	public boolean getEstadoVetado(){return vetado;}
 	public void setVetado(boolean vetado) {
 		this.vetado = vetado;
 	}
-
+	public String getNombre(){return nombre;}
+	public String getApellidos(){return apellidos;}
+	public String getCorreo(){return correo;}
+	public String getFechaNacimiento(){return fechaNacimiento;}
 
 
 
@@ -72,6 +73,7 @@ public class Usuario {
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
 			conexiones.add(conexion);
+			chats.add(conexion.getChat());
 		}
 	}
 
@@ -125,7 +127,7 @@ public class Usuario {
 		return conexion;
 	}
 
-
+	public List<Conexion> getConexiones(){return conexiones;}
 
 
 	//GESTIÓN INTERESES
@@ -138,7 +140,6 @@ public class Usuario {
 		tablonPublicacion.addInteres(interes);
 	}
 
-	//TODO: Por qué está esta clase??
 	protected void addIntereses(List<DescripcionInteres> intereses) {
 		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
@@ -151,6 +152,8 @@ public class Usuario {
 
 
 	//GESTIÓN EVENTOS
+	public List<Evento> getEventos(){return eventos;}
+
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
 		// Constraint: UsuarioVetado
 		assert !vetado;
@@ -175,8 +178,9 @@ public class Usuario {
 
 
 
-
 	//GESTIÓN PUBLICACIONES
+	public List<Publicacion> getPublicacionesCreadas(){return publicacionesCreadas;}
+
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
@@ -187,7 +191,6 @@ public class Usuario {
 	public void likePublicacion(Publicacion publicacion) {
 		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
 	}
-
 
 
 
@@ -202,12 +205,9 @@ public class Usuario {
 
 
 	//GESTIÓN CHATS
-	public void iniciarChatPrivado(Usuario usuario) {
-		//TODO: El usuario inicia un chat privado (se le asocia a ambos usuarios ese chat)
-	}
+	public List<Chat> getChats(){return chats;}
 
 	public void enviarMensaje(String mensaje, Chat chat) {
-		//TODO: Pasarle como parámetros el id del chat y el mensaje??
 		assert chat != null && mensaje != null;
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}

@@ -8,9 +8,9 @@ import java.util.List;
 public class Chat {
 
 	protected String fechaCreacion;
-	private int idChat;
+	private long ID;
 	protected List<Usuario> usuarios;
-	protected static int contadorIDs = 0;
+	protected static long contadorIDs = 0;
 	protected List<Mensaje> historial;
 
 	/**
@@ -19,7 +19,7 @@ public class Chat {
 	 * @param fecha
 	 */
 	public Chat(Usuario creador, String fecha) {
-		this.idChat = contadorIDs++;
+		this.ID = contadorIDs++;
 		this.fechaCreacion = fecha;
 		this.usuarios = new ArrayList<>();
 		this.historial = new ArrayList<>();
@@ -34,8 +34,8 @@ public class Chat {
 		return historial;
 	}
 
-	public int getIdChat() {
-		return idChat;
+	public long getID() {
+		return this.ID;
 	}
 
 	/**

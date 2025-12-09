@@ -13,7 +13,8 @@ public class Publicacion {
 	private String contenido;
 	private int likes;
 	private Usuario creador;
-
+	private long ID;
+	protected static int contadorIDs = 0;
 	/**
 	 * 
 	 * @param fecha
@@ -25,6 +26,7 @@ public class Publicacion {
 		this.contenido = contenido;
 		this.likes = 0;
 		this.creador = creador;
+		this.ID = contadorIDs++;
 	}
 
 	public void calcularLikes() {
@@ -36,25 +38,15 @@ public class Publicacion {
 
 	public int getLikes() {return likes;}
 
-	/**
-	 * 
-	 * @param contenido
-	 */
+	public String getContenido() {return this.contenido;}
 	public void actualizarContenido(String contenido) {this.contenido = contenido;}
 
-	public String getContenido() {
-		return this.contenido;
-	}
+	public String getFecha() {return this.fecha;}
+	public long getID() {return this.ID;}
 
-	public String getFecha() {
-		return this.fecha;
-	}
+
+	// GESTION INTERESES
 	public List<Interes> getIntereses(){return this.intereses;}
-
-	/**
-	 * 
-	 * @param interes
-	 */
 	protected void addInteres(Interes interes) {
 		if(!intereses.contains(interes)) intereses.add(interes);
 	}
