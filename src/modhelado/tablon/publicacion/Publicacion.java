@@ -50,6 +50,10 @@ public class Publicacion {
 	protected void addInteres(Interes interes) {
 		if(!intereses.contains(interes)) intereses.add(interes);
 	}
+	
+	public Usuario getCreador() {
+		return this.creador;
+	}
 
 	/**
 	 *

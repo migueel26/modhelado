@@ -160,7 +160,7 @@ public class Usuario {
 
 		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
-		GestorBaseDatos.guardar(evento);
+		GestorBaseDatos.guardarEvento(evento);
 		eventos.add(evento);
 		chats.add(evento.getChat());
 	}
@@ -184,7 +184,7 @@ public class Usuario {
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
-		GestorBaseDatos.guardar(publicacion);
+		GestorBaseDatos.guardarPublicacion(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 

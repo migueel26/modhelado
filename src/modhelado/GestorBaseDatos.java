@@ -8,6 +8,7 @@ import java.util.Map;
 
 import modhelado.interes.Interes;
 import modhelado.tablon.evento.Evento;
+import modhelado.tablon.publicacion.Publicacion;
 import modhelado.usuario.Usuario;
 import redis.clients.jedis.Jedis;
 
@@ -21,10 +22,6 @@ public class GestorBaseDatos {
         return new Jedis(REDIS_HOST, REDIS_PORT);
     }
 	
-    public static void guardar(Object object) {
-
-    }
-
     public static List<Object> consultar(String consulta) {
         return Collections.emptyList();
     }
@@ -94,9 +91,7 @@ public class GestorBaseDatos {
     }
     
     
-    public static void añadirEvento(Usuario usuario, Evento evento) {
-    	
-    }
+    
     
     public static void guardarEvento(Evento evento) {
     	long eventoId;
@@ -123,6 +118,41 @@ public class GestorBaseDatos {
     		
     		String claveInteresesEvento = "evento:intereses:" + eventoId;
     		String[] intereses = evento.getIntereses().stream()
+    				.map(Interes::interes)
+    				.toArray(String[]::new);
+    	
+    		if (intereses.length > 0 ) {
+    			jedis.sadd(claveInteresesEvento, intereses);
+    		}
+    	}
+    	
+    }
+    
+    public static void guardarPublicacion(Publicacion publicacion) {
+    	
+    	String publicacionId = String.valueOf(publicacion.getID()); 
+    	try(Jedis jedis = getJedis())
+    	{
+    		// hacemos que redis gestione los ids de los eventos
+    		String publicacionKey = "publicacion:" + publicacionId;
+    		
+    		
+    		
+    		Map <String, String> publicacionData = new HashMap<>();
+    		publicacionData.put("creador_nombre", publicacion.getCreador().getUsername());
+    		publicacionData.put("contenido", publicacion.getContenido());
+    		publicacionData.put("fecha", publicacion.getFecha());
+    		publicacionData.put("likes", String.valueOf(publicacion.getLikes()));
+    		
+    		
+    		jedis.hset(publicacionKey, publicacionData);
+    		
+    		String claveEventosCreados = "usuario:publicacion_creados:" + publicacion.getCreador().getUsername();
+    		jedis.sadd(claveEventosCreados, String.valueOf(publicacionId));
+    		
+    		
+    		String claveInteresesEvento = "publicacion:intereses:" + publicacionId;
+    		String[] intereses = publicacion.getIntereses().stream()
     				.map(Interes::interes)
     				.toArray(String[]::new);
     	
