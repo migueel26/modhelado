@@ -37,12 +37,16 @@ public class Usuario {
 		this.correo = correo;
 		this.fechaNacimiento = fechaNacimiento;
 		this.vetado = false;
-
 		this.intereses = new ArrayList<>();
+
+		this.conexiones = new ArrayList<>();
+
+		this.eventos = new ArrayList<>();
 		this.tablonEventos = new TablonEventos();
 		this.tablonPublicacion = new TablonPublicacion();
 		this.publicacionesCreadas = new ArrayList<>();
-		this.conexiones = new ArrayList<>();
+
+		this.chats = new ArrayList<>();
 	}
 
 	public void addConexion(Conexion conexion) {

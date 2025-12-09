@@ -25,9 +25,9 @@ public class Main {
         System.out.println("Usuarios creados: "+ usuario1.getUsername()+", "+usuario2.getUsername()+", "+usuario3.getUsername()+", "+usuario4.getUsername()+", "+usuario5.getUsername());
 
         //Asociar intereses a los usuarios
-        usuario1.addInteres(new DescripcionInteres("Harry Potter", usuario1, cine()));
-        usuario1.addInteres(new DescripcionInteres("Baloncesto", usuario1, deporte()));
-        usuario2.addInteres(new DescripcionInteres("Titanic", usuario2, cine()));
+        usuario1.addInteres(cine(), "Harry Potter");
+        usuario1.addInteres(deporte(), "Baloncesto");
+        usuario2.addInteres(cine(), "Titanic");
 
         //Crear conexiones
             //usuario1 envía conexión a usuario2
