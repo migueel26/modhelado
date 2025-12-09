@@ -16,20 +16,25 @@ import java.beans.PersistenceDelegate;
 import java.util.*;
 
 public class Usuario {
-	private final TablonEventos tablonEventos;
-	private final TablonPublicacion tablonPublicacion;
-	private List<Conexion> conexiones;
-	private List<Chat> chats;
-	private List<DescripcionInteres> intereses;
 	private String username;
 	private String nombre;
 	private String apellidos;
 	private String correo;
 	private String fechaNacimiento;
 	private boolean vetado;
-	private List<Publicacion> publicacionesCreadas;
-	private List<Evento> eventos;
+	private List<DescripcionInteres> intereses;
 
+	private List<Conexion> conexiones;
+
+	private List<Evento> eventos;
+	private List<Publicacion> publicacionesCreadas;
+	private final TablonEventos tablonEventos;
+	private final TablonPublicacion tablonPublicacion;
+
+	private List<Chat> chats;
+
+
+	//CONSTRUCTOR
 	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
 		assert GestorBaseDatos.consultar("SELECT username FROM USUARIOS WHERE username = '" + username + "'").isEmpty();
 		this.username = username;
@@ -50,6 +55,22 @@ public class Usuario {
 		this.chats = new ArrayList<>();
 	}
 
+
+
+
+	//GESTIÓN USUARIO
+	public String getUsername() {
+		return username;
+	}
+
+	public void setVetado(boolean vetado) {
+		this.vetado = vetado;
+	}
+
+
+
+
+	//GESTIÓN CONEXIONES
 	public void addConexion(Conexion conexion) {
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
@@ -107,10 +128,10 @@ public class Usuario {
 		return conexion;
 	}
 
-	/**
-	 * 
-	 * @param descripcion
-	 */
+
+
+
+	//GESTIÓN INTERESES
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
 		intereses.add(new DescripcionInteres(descripcion, this, interes));
@@ -118,10 +139,6 @@ public class Usuario {
 		tablonPublicacion.addInteres(interes);
 	}
 
-	/**
-	 *
-	 * @param intereses
-	 */
 	protected void addIntereses(List<DescripcionInteres> intereses) {
 		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
@@ -130,29 +147,10 @@ public class Usuario {
 		}
 	}
 
-	/**
-	 * 
-	 * @param contenido
-	 * @param fecha
-	 */
-	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
-		assert contenido != null && fecha != null;
-		//Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
-		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
-		GestorBaseDatos.guardar(publicacion);
-		this.publicacionesCreadas.add(publicacion);
-	}
 
-	/**
-	 * 
-	 * @param mensaje
-	 * @param chat
-	 */
-	public void enviarMensaje(String mensaje, Chat chat) {
-		assert chat != null && mensaje != null;
-		chat.enviarMensaje(this, new Date().toString(), mensaje);
-	}
 
+
+	//GESTIÓN EVENTOS
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
 		// Constraint: UsuarioVetado
 		assert !vetado;
@@ -163,10 +161,6 @@ public class Usuario {
 		eventos.add(evento);
 	}
 
-	/**
-	 * 
-	 * @param evento
-	 */
 	public void accederEvento(Evento evento) {
 		// Constraint: UsuarioVetado
 		assert !vetado;
@@ -175,18 +169,34 @@ public class Usuario {
 		if(!eventos.contains(evento)) eventos.add(evento);
 	}
 
-	public void setVetado(boolean vetado) {
-		this.vetado = vetado;
+
+
+
+	//GESTIÓN PUBLICACIONES
+	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
+		assert contenido != null && fecha != null;
+		//Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
+		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
+		GestorBaseDatos.guardar(publicacion);
+		this.publicacionesCreadas.add(publicacion);
 	}
 
 
+
+
+	//GESTIÓN TABLONES
 	public TablonEventos getTablonEventos() {return tablonEventos;}
+
 	public TablonPublicacion getTablonPublicacion() {return tablonPublicacion;}
 
 
 
-	public String getUsername() {
-		return username;
+
+	//GESTIÓN CHATS
+	public void enviarMensaje(String mensaje, Chat chat) {
+		assert chat != null && mensaje != null;
+		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
+
 
 }
