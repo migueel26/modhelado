@@ -139,6 +139,7 @@ public class Usuario {
 		tablonPublicacion.addInteres(interes);
 	}
 
+	//TODO: Por qué está esta clase??
 	protected void addIntereses(List<DescripcionInteres> intereses) {
 		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
@@ -159,6 +160,8 @@ public class Usuario {
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
 		GestorBaseDatos.guardar(evento);
 		eventos.add(evento);
+
+		//TODO: se crea automáticamente un chat grupal (se añade el chat a la lista de chats del usuario creador)
 	}
 
 	public void accederEvento(Evento evento) {
@@ -167,6 +170,8 @@ public class Usuario {
 
 		evento.addUsuario(this);
 		if(!eventos.contains(evento)) eventos.add(evento);
+
+		//TODO: se añade el chat del evento a la lista de chats del usuario que se ha unido
 	}
 
 
@@ -175,10 +180,15 @@ public class Usuario {
 	//GESTIÓN PUBLICACIONES
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
+		//TODO: primera o segunda opción para crear la publicación?
 		//Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses.stream().map(DescripcionInteres::getInteres).toList());
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
+	}
+
+	public void likePublicacion(Integer idPublicacion) {
+		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
 	}
 
 
@@ -193,7 +203,12 @@ public class Usuario {
 
 
 	//GESTIÓN CHATS
+	public void iniciarChatPrivado(Usuario usuario) {
+		//TODO: El usuario inicia un chat privado (se le asocia a ambos usuarios ese chat)
+	}
+
 	public void enviarMensaje(String mensaje, Chat chat) {
+		//TODO: Pasarle como parámetros el id del chat y el mensaje??
 		assert chat != null && mensaje != null;
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
