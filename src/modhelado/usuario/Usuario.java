@@ -129,6 +129,8 @@ public class Usuario {
 
 
 	//GESTIÓN INTERESES
+	public List<DescripcionInteres> getIntereses() {return intereses;}
+
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
 		intereses.add(new DescripcionInteres(descripcion, this, interes));

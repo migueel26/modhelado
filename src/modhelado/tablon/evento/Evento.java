@@ -14,6 +14,7 @@ import java.util.StringJoiner;
 public class Evento {
 
 	private List<Interes> intereses;
+	private long ID;
 	private String titulo;
 	private String fecha;
 	private Integer aforo;
@@ -83,6 +84,14 @@ public class Evento {
 	public void setLugar(String lugar) {
 		this.lugar = lugar;
 	}
+	
+	public long getID() {
+		return this.ID;
+	}
+	
+	public void setID(long ID) {
+		this.ID = ID;
+	}
 
 	/**
 	 * 
@@ -118,6 +127,10 @@ public class Evento {
 		assert !usuario.equals(creador);
 
 		participantes.remove(usuario);
+	}
+	
+	public Usuario getCreador() {
+		return this.creador;
 	}
 
 	@Override

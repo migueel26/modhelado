@@ -38,4 +38,8 @@ public class DescripcionInteres {
 	public Interes getInteres() {
 		return interes;
 	}
+
+	public String toString(){
+		return interes.interes() + ": " + descripcion;
+	}
 }
