@@ -31,15 +31,15 @@ public class Main {
 
         //Crear conexiones
             //usuario1 envía conexión a usuario2
-        usuario1.crearConexion(usuario2);
-        //usuario2.aceptarConexion(usuario1);
+        usuario1.enviarSolicitud(usuario2);
+        usuario2.aceptarConexion(usuario1);
 
-        usuario3.crearConexion(usuario1);
-        //usuario1.bloquea(usuario3);
+        usuario3.enviarSolicitud(usuario1);
+        usuario1.bloquearConexion(usuario3);
 
         //Crear eventos
-        usuario1.crearEvento(new Evento(usuario1, "Museo del cine", "20-04-2026", 10, "Museo cine Málaga", List.of(cine())));
-        usuario4.crearEvento(new Evento(usuario4, "Taller de cerámica", "05-02-2026", 6, "Avenida Andalucía", List.of(parque())));
+        usuario1.crearEvento("Museo del cine", "20-04-2026", 10, "Museo cine Málaga", List.of(cine()));
+        usuario4.crearEvento("Taller de cerámica", "05-02-2026", 6, "Avenida Andalucía", List.of(parque()));
 
         //Crear publicaciones
         usuario2.crearPublicacion("Nueva película de Marvel!!", "10-12-2025", List.of(cine()));

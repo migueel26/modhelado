@@ -140,7 +140,7 @@ public class Usuario {
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
 
-	public void crearEvento(String titulo, String fecha, String aforo, String lugar, List<Interes> intereses) {
+	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
 		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
 		GestorBaseDatos.guardar(evento);
