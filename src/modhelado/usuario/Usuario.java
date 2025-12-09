@@ -31,6 +31,7 @@ public class Usuario {
 	private List<Evento> eventos;
 
 	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
+		assert GestorBaseDatos.consultar("SELECT username FROM USUARIOS WHERE username = '" + username + "'").isEmpty();
 		this.username = username;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -57,7 +58,8 @@ public class Usuario {
 	}
 
 	public void enviarSolicitud(Usuario usuario) {
-		assert buscarConexion(usuario).isEmpty();	//Si existe la conexión no se envía de nuevo
+		// Constraint: ConexionUnicaParUsuarios
+		assert buscarConexion(usuario).isEmpty();
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -75,6 +77,7 @@ public class Usuario {
 	public void bloquearConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
 		if (!conexion.isEmpty()) {
+			// Constraint: ConexionUnicaParUsuarios
 			conexion.get().bloquear();
 		} else {
 			new Conexion(this, usuario, new Date().toString(), Bloqueada.bloqueada());
@@ -120,7 +123,7 @@ public class Usuario {
 	 * @param intereses
 	 */
 	protected void addIntereses(List<DescripcionInteres> intereses) {
-		for(DescripcionInteres interes : intereses) {
+		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
 			tablonPublicacion.addInteres(interes.getInteres());
 			tablonEventos.addInteres(interes.getInteres());
@@ -151,6 +154,9 @@ public class Usuario {
 	}
 
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
+		// Constraint: UsuarioVetado
+		assert !vetado;
+
 		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
 		GestorBaseDatos.guardar(evento);
@@ -162,8 +168,15 @@ public class Usuario {
 	 * @param evento
 	 */
 	public void accederEvento(Evento evento) {
+		// Constraint: UsuarioVetado
+		assert !vetado;
+
 		evento.addUsuario(this);
 		if(!eventos.contains(evento)) eventos.add(evento);
+	}
+
+	public void setVetado(boolean vetado) {
+		this.vetado = vetado;
 	}
 
 

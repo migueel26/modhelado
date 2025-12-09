@@ -39,8 +39,8 @@ public class TablonEventos extends Tablon {
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
-
 		// Debe devolver una lista de eventos de tipo Evento
+		// Constraint: AlMenosUnInteres no hace falta pues se seleccionan desde la Base de Datos.
 		List<Object> query = GestorBaseDatos.consultar("SELECT evento FROM eventos WITH intereses");
 
 		for (Object obj : query) {
