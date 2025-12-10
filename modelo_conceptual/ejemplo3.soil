@@ -1,0 +1,35 @@
+reset
+
+!new Usuario('u1')
+!u1.nombreUsuario := 'carlos009'
+!u1.nombre := 'Carlos'
+!u1.apellidos := 'García'
+!u1.correo := 'carlosg@mail.com'
+!u1.vetado := false
+
+!new Usuario('u2')
+!u2.nombreUsuario := 'gonzalo009'
+!u2.nombre := 'Gonzalo'
+!u2.apellidos := 'Pantín'
+!u2.correo := 'gonzalo@mail.com'
+!u2.vetado := false
+
+!new Usuario('u3')
+!u3.nombreUsuario := 'candela009'
+!u3.nombre := 'Candela'
+!u3.apellidos := 'Dávila'
+!u3.correo := 'candela@mail.com'
+!u3.vetado := false
+
+!insert (u1, u2) into Conexion
+!Conexion1.estado := #Aceptada
+!Conexion1.antiguedad := 3
+
+!insert (u2, u3) into Conexion
+!Conexion2.estado := #Pendiente
+!Conexion2.antiguedad := 4
+
+!insert (u2, u1) into Conexion
+!Conexion3.estado := #Aceptada
+!Conexion3.antiguedad := 3
+

@@ -174,12 +174,13 @@ context Conexion
 
     -- No puede existir más de una conexión entre el mismo par de usuarios
     inv conexionUnicaParUsuarios:
-        Conexion.allInstances()->forAll(c | c.usuario1 <> self.usuario2 and c.usuario2 <> self.usuario1)
+        Conexion.allInstances()->forAll(
+            c | c.usuario1 <> self.usuario2 and c.usuario2 <> self.usuario1
+        )
 
 
 context Usuario
-    -- TODO: esto está mal, debemos verificar que el usuario vetado no esté 
-    -- como asistente o creador en ninguno de los eventos
+    -- Si un usuario ha sido vetado, entonces no puede ni crear ni asistir a eventos
     inv UsuarioVetado:
         self.vetado = true implies 
             self.eventosCreados->size() = 0 and

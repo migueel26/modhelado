@@ -1,3 +1,5 @@
+reset
+
 !new Ciencia('ciencia')
 !new Deportes('deportes')
 !new Musica('musica')

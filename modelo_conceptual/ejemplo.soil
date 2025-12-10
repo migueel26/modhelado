@@ -1,3 +1,5 @@
+reset
+
 -- Intereses
 
 !new Deportes('InteresDeportes')
