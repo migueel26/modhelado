@@ -1,5 +1,7 @@
 package modhelado.usuario.conexion;
 
+import modhelado.usuario.Usuario;
+
 public class Pendiente implements EstadoConexion {
 	// PATRÓN SINGLETON
 	private static Pendiente pendiente;
@@ -20,13 +22,17 @@ public class Pendiente implements EstadoConexion {
 	}
 
 	@Override
-	public void cancelar(Conexion conexion) {
+	public void cancelar(Conexion conexion, Usuario bloqueador) {
 		assert conexion != null;
+		conexion.getEmisor().borrarConexion(conexion);
+		conexion.getReceptor().borrarConexion(conexion);
 	}
 
 	@Override
-	public void bloquear(Conexion conexion) {
+	public void bloquear(Conexion conexion, Usuario bloqueador) {
 		assert conexion != null;
+		// Es necesario intercambiar roles porque el "emisor" es el "bloqueador" ahora
+		if (conexion.getReceptor().equals(bloqueador)) conexion.intercambiarRoles();
 		conexion.cambiarEstado(Bloqueada.bloqueada());
 	}
 

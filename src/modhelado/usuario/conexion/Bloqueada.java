@@ -1,5 +1,7 @@
 package modhelado.usuario.conexion;
 
+import modhelado.usuario.Usuario;
+
 public class Bloqueada implements EstadoConexion {
     private static Bloqueada bloqueada;
     private Bloqueada() {}
@@ -16,13 +18,15 @@ public class Bloqueada implements EstadoConexion {
     }
 
     @Override
-    public void cancelar(Conexion conexion) {
-        assert conexion != null;
-        throw new IllegalArgumentException("ERROR: No se puede aceptar a una persona bloqueada");
+    public void cancelar(Conexion conexion, Usuario bloqueador) {
+        // Desbloquear
+        assert conexion != null && conexion.getEmisor().equals(bloqueador);
+        conexion.getEmisor().borrarConexion(conexion);
+        conexion.getReceptor().borrarConexion(conexion);
     }
 
     @Override
-    public void bloquear(Conexion conexion) {
+    public void bloquear(Conexion conexion, Usuario bloqueador) {
         assert conexion != null;
         throw new IllegalArgumentException("ERROR: No se puede bloquear a una persona Bloqueada");
     }
