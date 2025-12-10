@@ -54,7 +54,6 @@ public class Usuario {
 
 
 
-
 	//GESTIÓN USUARIO
 	public boolean getEstadoVetado(){return vetado;}
 	public void setVetado(boolean vetado) {
@@ -84,33 +83,31 @@ public class Usuario {
 
 	public void aceptarConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
-		assert this.equals(conexion.get().getReceptor() == this);
-		conexion.get().aceptar();
+		if (conexion.isPresent()) {
+			assert this.equals(conexion.get().getReceptor());
+			conexion.get().aceptar();
+		}
 	}
 
 	public void cancelarConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
-		if(!conexion.isEmpty()) conexion.get().cancelar();
+        if (conexion.isPresent()) {
+			conexion.get().cancelar(usuario);
+		}
+	}
+
+	public void borrarConexion(Conexion conexion) {
+		conexiones.remove(conexion);
 	}
 
 	public void bloquearConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
-		if (!conexion.isEmpty()) {
+		if (conexion.isPresent()) {
 			// Constraint: ConexionUnicaParUsuarios
-			conexion.get().bloquear();
+			conexion.get().bloquear(this);
 		} else {
 			new Conexion(this, usuario, new Date().toString(), Bloqueada.bloqueada());
 		}
-	}
-
-	public Conexion getConexionCon(Usuario usuario) {
-		Conexion result = null;
-		for (Conexion conexion : conexiones) {
-			if (result == null && (conexion.getEmisor().equals(usuario) || conexion.getReceptor().equals(usuario))) {
-				result = conexion;
-			}
-		}
-		return result;
 	}
 
 	private Optional<Conexion> buscarConexion(Usuario usuario) {
@@ -126,11 +123,15 @@ public class Usuario {
 		return conexion;
 	}
 
-	public List<Conexion> getConexiones(){return conexiones;}
+	public List<Conexion> getConexiones() {
+		return conexiones;
+	}
 
 
 	//GESTIÓN INTERESES
-	public List<DescripcionInteres> getIntereses() {return intereses;}
+	public List<DescripcionInteres> getIntereses() {
+		return intereses;
+	}
 
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
@@ -139,7 +140,7 @@ public class Usuario {
 		tablonPublicacion.addInteres(interes);
 	}
 
-	protected void addIntereses(List<DescripcionInteres> intereses) {
+	public void addIntereses(List<DescripcionInteres> intereses) {
 		for (DescripcionInteres interes : intereses) {
 			if(!this.intereses.contains(interes)) this.intereses.add(interes);
 			tablonPublicacion.addInteres(interes.getInteres());
@@ -179,7 +180,7 @@ public class Usuario {
 	public List<Publicacion> getPublicacionesCreadas(){return publicacionesCreadas;}
 
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
-		assert contenido != null && fecha != null;
+		assert !vetado && contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		//BBDD.guardarPublicacion(publicacion);
 		GestorBaseDatos.guardar(publicacion);
@@ -187,6 +188,7 @@ public class Usuario {
 	}
 
 	public void darLike(Publicacion publicacion) {
+		assert !vetado;
 		publicacion.darLike(this);
 	}
 
@@ -205,10 +207,12 @@ public class Usuario {
 
 
 	//GESTIÓN CHATS
-	public List<Chat> getChats(){return chats;}
+	public List<Chat> getChats(){
+		return chats;
+	}
 
 	public void enviarMensaje(String mensaje, Chat chat) {
-		assert chat != null && mensaje != null;
+		assert chat != null && mensaje != null && !vetado;
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
 

@@ -47,12 +47,12 @@ public class Conexion {
 		estado.aceptar(this);
 	}
 
-	public void cancelar() {
-		estado.cancelar(this);
+	public void cancelar(Usuario bloqueador) {
+		estado.cancelar(this, bloqueador);
 	}
 
-	public void bloquear() {
-		estado.bloquear(this);
+	public void bloquear(Usuario bloqueador) {
+		estado.bloquear(this, bloqueador);
 	}
 
 	public EstadoConexion getEstado() {
@@ -61,6 +61,12 @@ public class Conexion {
 
 	public String getFecha() {
 		return fecha;
+	}
+
+	public void intercambiarRoles() {
+		Usuario aux = receptor;
+		this.receptor = emisor;
+		this.emisor = aux;
 	}
 
 	public Usuario getEmisor() {
