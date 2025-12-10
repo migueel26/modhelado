@@ -1,9 +1,9 @@
 package modhelado.tablon.publicacion;
 
-import modhelado.GestorBaseDatos;
 import modhelado.interes.Interes;
 import modhelado.usuario.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion {
@@ -11,7 +11,7 @@ public class Publicacion {
 	private List<Interes> intereses;
 	private String fecha;
 	private String contenido;
-	private int likes;
+	private List<Usuario> usuarioLikes;
 	private Usuario creador;
 	private long ID;
 	protected static int contadorIDs = 0;
@@ -24,49 +24,63 @@ public class Publicacion {
 		this.intereses = intereses;
 		this.fecha = fecha;
 		this.contenido = contenido;
-		this.likes = 0;
+		this.usuarioLikes = new ArrayList<>();
 		this.creador = creador;
 		this.ID = contadorIDs++;
 	}
 
-	public void calcularLikes() {
-		// Debe devolver un entero Integer
-		Object likes_number = GestorBaseDatos.consultar("SELECT publicaciones FROM usuarios.likes COUNT").get(0);
-
-		if(likes_number instanceof Integer) this.likes = (Integer) likes_number;
+	public int getLikes() {
+		return usuarioLikes.size();
 	}
 
-	public int getLikes() {return likes;}
-	public void addLike() {this.likes += 1;}
+	public List<Usuario> getUsuarioLikes() {
+		return usuarioLikes;
+	}
 
-	public String getContenido() {return this.contenido;}
-	public void actualizarContenido(String contenido) {this.contenido = contenido;}
+	public String getContenido() {
+		return this.contenido;
+	}
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
 
-	public String getFecha() {return this.fecha;}
-	public long getID() {return this.ID;}
+	public String getFecha() {
+		return this.fecha;
+	}
+	public long getID() {
+		return this.ID;
+	}
 
+	// GESTIÓN INTERESES
+	public List<Interes> getIntereses(){
+		return this.intereses;
+	}
 
-	// GESTION INTERESES
-	public List<Interes> getIntereses(){return this.intereses;}
 	protected void addInteres(Interes interes) {
-		if(!intereses.contains(interes)) intereses.add(interes);
+		if (!intereses.contains(interes)) intereses.add(interes);
 	}
 	
 	public Usuario getCreador() {
 		return this.creador;
 	}
 
-	/**
-	 *
-	 * @param intereses
-	 */
+	public void darLike(Usuario usuario) {
+		//TODO: CONSTRAINT
+		assert !usuarioLikes.contains(usuario);
+		usuarioLikes.add(usuario);
+	}
+
+	public void quitarLike(Usuario usuario) {
+		usuarioLikes.remove(usuario);
+	}
+
 	protected void addIntereses(List<Interes> intereses) {
-		for(Interes interes : intereses) {
-			if(!this.intereses.contains(interes)) this.intereses.add(interes);
+		for (Interes interes : intereses) {
+			if (!this.intereses.contains(interes)) this.intereses.add(interes);
 		}
 	}
 
 	public void eliminarInteres(Interes interes) {
-		if(this.intereses.contains(interes)) intereses.remove(interes);
+		if (this.intereses.contains(interes)) intereses.remove(interes);
 	}
 }

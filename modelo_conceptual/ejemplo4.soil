@@ -1,0 +1,46 @@
+reset
+
+print '--- ACTO 1: Configuración Inicial ---'
+-- 1. Crear Interés y Usuario
+!new Deportes('futbol')
+!new Usuario('juan')
+!juan.nombreUsuario := 'JuanPerez'
+!juan.vetado := false
+!insert (juan, futbol) into Descripcion
+
+-- 2. Configurar sus tablones obligatorios
+!new TablonEventos('teJuan')
+!insert (juan, teJuan) into TieneTablonEventos
+!new TablonPublicaciones('tpJuan')
+!insert (juan, tpJuan) into TieneTablonPublicaciones
+
+-- 3. Juan crea un evento y asiste a él
+!new Evento('torneo')
+!torneo.titulo := 'Torneo Local'
+!torneo.aforo := 20
+!insert (torneo, futbol) into EventoContieneIntereses
+
+-- Relaciones obligatorias
+!insert (juan, torneo) into CreaEventos
+!insert (juan, torneo) into Asiste
+
+-- Chat del evento obligatorio
+!new ChatEvento('chatTorneo')
+!insert (torneo, chatTorneo) into TieneChat
+
+
+-- Intentamos vetarlo directamente
+!juan.vetado := true
+
+
+-- Para cumplir la regla, primero debemos deshacer el veto temporalmente para limpiar
+!juan.vetado := false
+
+-- Al destruir el evento, desaparecen automáticamente los enlaces CreaEventos y Asiste
+-- asociados a ese evento.
+!destroy torneo
+
+-- Nota: Si Juan asistiera a eventos de OTROS, tendríamos que eliminar solo el enlace:
+-- !delete (juan, eventoDeOtro) from Asiste
+
+!juan.vetado := true

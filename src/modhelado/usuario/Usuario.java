@@ -1,7 +1,6 @@
 package modhelado.usuario;
 
 import modhelado.GestorBaseDatos;
-import modhelado.chat.ChatPrivado;
 import modhelado.interes.Interes;
 import modhelado.tablon.TablonEventos;
 import modhelado.tablon.TablonPublicacion;
@@ -13,7 +12,6 @@ import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 import modhelado.usuario.conexion.Pendiente;
 
-import java.beans.PersistenceDelegate;
 import java.util.*;
 
 public class Usuario {
@@ -71,7 +69,6 @@ public class Usuario {
 
 	//GESTIÓN CONEXIONES
 	public void addConexion(Conexion conexion) {
-		//TODO: para qué está este método??
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
 			conexiones.add(conexion);
@@ -81,7 +78,7 @@ public class Usuario {
 
 	public void enviarSolicitud(Usuario usuario) {
 		// Constraint: ConexionUnicaParUsuarios
-		assert buscarConexion(usuario).isEmpty() && !vetado;
+		assert buscarConexion(usuario).isEmpty();
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -150,9 +147,6 @@ public class Usuario {
 		}
 	}
 
-
-
-
 	//GESTIÓN EVENTOS
 	public List<Evento> getEventos(){return eventos;}
 
@@ -162,7 +156,8 @@ public class Usuario {
 
 		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
-		GestorBaseDatos.guardarEvento(evento);
+		//BBDD.guardarEvento(evento);
+		GestorBaseDatos.guardar(evento);
 		eventos.add(evento);
 		chats.add(evento.getChat());
 	}
@@ -184,22 +179,20 @@ public class Usuario {
 	public List<Publicacion> getPublicacionesCreadas(){return publicacionesCreadas;}
 
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
-		assert !vetado && contenido != null && fecha != null;
+		assert contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
-		GestorBaseDatos.guardarPublicacion(publicacion);
+		//BBDD.guardarPublicacion(publicacion);
+		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 
-	public void likePublicacion(Long idPublicacion) {
-		assert !vetado && idPublicacion != null;
-		for (Publicacion publicacion : getTablonPublicacion().getTablonPublicacion()) {
-			if(publicacion.getID()==idPublicacion) {
-				publicacion.addLike();
-			}
-		}
+	public void darLike(Publicacion publicacion) {
+		publicacion.darLike(this);
 	}
 
-
+	public void quitarLike(Publicacion publicacion) {
+		publicacion.quitarLike(this);
+	}
 
 	//GESTIÓN TABLONES
 	public TablonEventos getTablonEventos() {return tablonEventos;}
@@ -214,26 +207,10 @@ public class Usuario {
 	//GESTIÓN CHATS
 	public List<Chat> getChats(){return chats;}
 
-	/*
 	public void enviarMensaje(String mensaje, Chat chat) {
 		assert chat != null && mensaje != null;
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
-	 */
 
-	public void crearChatPrivado(Usuario usuarioDestino) {
-		assert !vetado && usuarioDestino != null;
-		Chat nuevo = new ChatPrivado(this, usuarioDestino, new Date().toString());
-		chats.add(nuevo);
-	}
-
-	public void enviarMensaje(Long id, String mensaje) {
-		assert !vetado && id != null && mensaje != null;
-		for (Chat chat : chats) {
-			if(chat.getID()==id) {
-				chat.enviarMensaje(this, new Date().toString(), mensaje);
-			}
-		}
-	}
 
 }
