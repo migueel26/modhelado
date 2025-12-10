@@ -1,46 +1,75 @@
 reset
 
-print '--- ACTO 1: Configuración Inicial ---'
--- 1. Crear Interés y Usuario
+-- 1. Usuario Pepe interesado en el fútbol y ciencia
+!new Usuario('u1')
+!u1.nombreUsuario := 'Pepe009'
+!u1.nombre := 'Pepe'
+!u1.apellidos := 'Matamoros'
+!u1.correo := 'pepem@mail.com'
+!u1.fechaNacimiento := '05-07-1998'
+!u1.vetado := true
+
+!new Usuario('u2')
+!u2.nombreUsuario := 'admin'
+
+
 !new Deportes('futbol')
-!new Usuario('juan')
-!juan.nombreUsuario := 'JuanPerez'
-!juan.vetado := false
-!insert (juan, futbol) into Descripcion
+!insert (u1, futbol) into Descripcion
 
--- 2. Configurar sus tablones obligatorios
-!new TablonEventos('teJuan')
-!insert (juan, teJuan) into TieneTablonEventos
-!new TablonPublicaciones('tpJuan')
-!insert (juan, tpJuan) into TieneTablonPublicaciones
+!new Ciencia('ciencia')
+!insert (u1, ciencia) into Descripcion
 
--- 3. Juan crea un evento y asiste a él
-!new Evento('torneo')
-!torneo.titulo := 'Torneo Local'
-!torneo.aforo := 20
-!insert (torneo, futbol) into EventoContieneIntereses
+-- 2. Crear eventos pasados a los que Pepe ha asistido
+!new Evento('e1')
+!e1.titulo := 'Speed Dating O(1)'
+!e1.concluido := true  
+!e1.aforo := 10
 
--- Relaciones obligatorias
-!insert (juan, torneo) into CreaEventos
-!insert (juan, torneo) into Asiste
+!insert (futbol, e1) into EventoContieneIntereses
 
--- Chat del evento obligatorio
-!new ChatEvento('chatTorneo')
-!insert (torneo, chatTorneo) into TieneChat
+!new ChatEvento('c1')
+!insert (e1, c1) into TieneChat
 
+!new Evento('e2')
+!e2.titulo := 'k-Nearest Nerds'
+!e2.concluido := true
+!e2.aforo := 50
 
--- Intentamos vetarlo directamente
-!juan.vetado := true
+!insert (ciencia, e2) into EventoContieneIntereses
+
+!new ChatEvento('c2')
+!insert (e2, c2) into TieneChat
 
 
--- Para cumplir la regla, primero debemos deshacer el veto temporalmente para limpiar
-!juan.vetado := false
+-- 3. Evento al que Pepe no ha asistido
 
--- Al destruir el evento, desaparecen automáticamente los enlaces CreaEventos y Asiste
--- asociados a ese evento.
-!destroy torneo
+!new Evento('e3')
+!e3.titulo := 'TCP Handshake Meeting'
+!e3.concluido := false
+!e3.aforo := 30
 
--- Nota: Si Juan asistiera a eventos de OTROS, tendríamos que eliminar solo el enlace:
--- !delete (juan, eventoDeOtro) from Asiste
+!insert (ciencia, e3) into EventoContieneIntereses
 
-!juan.vetado := true
+!new ChatEvento('c3')
+!insert (e3, c3) into TieneChat
+
+
+-- 4. Indicamos que Pepe ha asistido a los eventos pasados
+
+!insert (u1, e1) into Asiste
+!insert (u1, e2) into Asiste
+!insert (u1, e3) into Asiste -- Esto es lo que produce el fallo del invariante
+
+
+-- 5. Indicamos que los eventos han sido creados por el admin
+
+!insert (u2, e1) into CreaEventos
+!insert (u2, e1) into Asiste
+
+!insert (u2, e2) into CreaEventos
+!insert (u2, e2) into Asiste
+
+!insert (u2, e3) into CreaEventos
+!insert (u2, e3) into Asiste
+
+
