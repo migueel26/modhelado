@@ -17,11 +17,10 @@ public class ChatPrivado extends Chat {
 	public ChatPrivado(Usuario usuario1, Usuario usuario2, String fecha) {
 		super(usuario1, fecha);
 		// Constraint: ChatPrivadoConexionAceptada
-		/** TODO: HAY QUE REVISAR COMO HACEMOS LAS PETICIONES
 		assert !(GestorBaseDatos.consultar("SELECT emisor FROM CONEXIONES WHERE (emisor = '" + usuario1.getUsername() + "' AND receptor = '" + usuario2.getUsername()
 				+ "') OR (emisor = '" + usuario2.getUsername()+ "' AND receptor = '" + usuario1.getUsername() + "')").getFirst() instanceof Conexion conexion &&
 				conexion.getEstado().equals(Aceptada.aceptada()));
-		*/
+
 		// Constraint: chatPrivadoUsuariosDiferentes
 		assert !usuario1.equals(usuario2);
 

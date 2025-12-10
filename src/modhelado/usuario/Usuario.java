@@ -12,7 +12,6 @@ import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 import modhelado.usuario.conexion.Pendiente;
 
-import java.beans.PersistenceDelegate;
 import java.util.*;
 
 public class Usuario {
@@ -148,9 +147,6 @@ public class Usuario {
 		}
 	}
 
-
-
-
 	//GESTIÓN EVENTOS
 	public List<Evento> getEventos(){return eventos;}
 
@@ -160,7 +156,8 @@ public class Usuario {
 
 		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
-		GestorBaseDatos.guardarEvento(evento);
+		//BBDD.guardarEvento(evento);
+		GestorBaseDatos.guardar(evento);
 		eventos.add(evento);
 		chats.add(evento.getChat());
 	}
@@ -184,15 +181,18 @@ public class Usuario {
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
-		GestorBaseDatos.guardarPublicacion(publicacion);
+		//BBDD.guardarPublicacion(publicacion);
+		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
 	}
 
-	public void likePublicacion(Publicacion publicacion) {
-		//TODO: un usuario le da like a una publicación (la publicación debería de tener id?)
+	public void darLike(Publicacion publicacion) {
+		publicacion.darLike(this);
 	}
 
-
+	public void quitarLike(Publicacion publicacion) {
+		publicacion.quitarLike(this);
+	}
 
 	//GESTIÓN TABLONES
 	public TablonEventos getTablonEventos() {return tablonEventos;}
