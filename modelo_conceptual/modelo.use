@@ -23,6 +23,7 @@ attributes
     fecha: String
     aforo: Integer
     lugar: String
+    concluido: Boolean
 end
 
 abstract class Chat
@@ -174,17 +175,20 @@ context Conexion
 
     -- No puede existir más de una conexión entre el mismo par de usuarios
     inv conexionUnicaParUsuarios:
-        Conexion.allInstances()->forAll(
-            c | c.usuario1 <> self.usuario2 and c.usuario2 <> self.usuario1
+        Conexion.allInstances()->excluding(self)->forAll(
+            c | (c.usuario1 <> self.usuario1 or c.usuario2 <> self.usuario2) and 
+                (c.usuario1 <> self.usuario2 or c.usuario2 <> self.usuario1)
         )
 
 
 context Usuario
-    -- Si un usuario ha sido vetado, entonces no puede ni crear ni asistir a eventos
+    -- Si un usuario ha sido vetado, entonces ya no podrá crear ni asistir a eventos
+    -- Nótese que los eventos ya concluidos no influyen 
     inv UsuarioVetado:
         self.vetado = true implies 
-            self.eventosCreados->size() = 0 and
-            self.eventosAsistidos->size() = 0
+            -- Buscamos eventos que no hayan concluido y verificamos que no exista ninguno
+            self.eventosCreados->select(e | e.concluido = false)->isEmpty() and
+            self.eventosAsistidos->select(e | e.concluido = false)->isEmpty() 
 
     -- Todos los usuarios deben tener nombres de usuario distintos
     inv nombresUsuarioDistintos:
@@ -215,10 +219,14 @@ context TablonPublicaciones
 context ChatPrivado
     -- Para que un chat privado exista entre 2 usuarios deben tener una conexión con estado Aceptada
     inv chatPrivadoConexionAceptada:
-        Conexion.allInstances()->
-            exists(c | Set{c.usuario1, c.usuario2}->intersection(self.usuarios)->size() = 2 and c.estado = #Aceptada)
+        self.usuarios->size() = 2 implies
+            Conexion.allInstances()->exists(
+                c | Set{c.usuario1, c.usuario2}->intersection(self.usuarios)->size() = 2 
+                    and c.estado = #Aceptada
+            )
 
     -- Un usuario no podrá mantener un chat privado consigo mismo.
-    inv chatPrivadoUsuariosDiferentes:
-        self.usuarios->isUnique(nombreUsuario)  -- como el nombreUsuario es único para todos los usuarios
-                                                -- se garantiza que los usuarios sean distintos
+    -- En teoría no es necesario ya que USE no permite asociar un objeto (chat)
+    -- con otro (usuario) más de una vez.
+    -- inv chatPrivadoUsuariosDiferentes:
+    --     self.usuarios->isUnique(nombreUsuario)

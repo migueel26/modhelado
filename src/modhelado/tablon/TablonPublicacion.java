@@ -17,6 +17,10 @@ public class TablonPublicacion extends Tablon {
 		this.publicaciones = new ArrayList<>();
 	}
 
+	public List<Publicacion> getTablonPublicacion() {
+		return publicaciones;
+	}
+
 	@Override
 	public void ver() {
 		personalizar(intereses);
