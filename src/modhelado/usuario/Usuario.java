@@ -155,11 +155,11 @@ public class Usuario {
 	//GESTIÓN EVENTOS
 	public List<Evento> getEventos(){return eventos;}
 
-	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
+	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
 		// Constraint: UsuarioVetado
 		assert !vetado;
 
-		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
+		Evento evento = new Evento(this, titulo, fecha, aforo, lugar,descripcion, intereses);
 		eventos.add(evento);
 		chats.add(evento.getChat());
 

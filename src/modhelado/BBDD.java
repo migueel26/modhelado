@@ -1,3 +1,4 @@
+
 package modhelado;
 
 import java.util.ArrayList;
@@ -222,8 +223,9 @@ public class BBDD {
             Integer aforo = Integer.parseInt(data.get("aforo"));
             String lugar = data.get("lugar");
             String creadorUsername = data.get("creador_nombre");
+            String descripcion = data.get("descripcion");
 
-            evento = new Evento(null, titulo, fecha, aforo, lugar, new ArrayList<>());
+            evento = new Evento(null, titulo, fecha, aforo, lugar, descripcion, new ArrayList<>());
 
         } catch (Exception e) {
             System.out.println("Fallo al mapear Hash a Evento");

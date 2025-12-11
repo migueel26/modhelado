@@ -20,6 +20,7 @@ public class Evento {
 	private String fecha;
 	private Integer aforo;
 	private String lugar;
+	private String descripcion;
 	private Usuario creador;
 	private List<Usuario> participantes;
 	private ChatGrupal chatGrupal;
@@ -31,13 +32,14 @@ public class Evento {
 	 * @param aforo
 	 * @param lugar
 	 */
-	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
+	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
 		assert titulo != null && fecha != null && aforo > 0 && lugar != null && !intereses.isEmpty();
 		this.intereses = intereses;
 		this.titulo = titulo;
 		this.fecha = fecha;
 		this.aforo = aforo;
 		this.lugar = lugar;
+		this.descripcion = descripcion;
 		this.creador = creador;
 		this.chatGrupal = new ChatGrupal(creador, new Date().toString());
 		this.ID = contadorIDs++;
@@ -135,12 +137,13 @@ public class Evento {
 		StringBuilder evento = new StringBuilder();
 		evento.append("Titulo: " + titulo +
 					"\nSe celebra el " + fecha + " en " + lugar +
-					"\nAforo máximo: " + aforo+ "\n") ;
+					"\nAforo máximo: " + aforo+
+					"\nDescripción: " + descripcion + "\n") ;
 
 		StringJoiner intereses = new StringJoiner(", ", "[", "]");
 		for (Interes interes : this.intereses){
 			intereses.add(interes.interes());
 		}
-		return evento.toString() + intereses.toString();
+		return evento.toString() + "Intereses: " + intereses.toString() + "\n";
 	}
 }
