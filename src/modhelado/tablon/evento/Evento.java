@@ -32,6 +32,7 @@ public class Evento {
 	 * @param lugar
 	 */
 	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, List<Interes> intereses) {
+		assert titulo != null && fecha != null && aforo > 0 && lugar != null && !intereses.isEmpty();
 		this.intereses = intereses;
 		this.titulo = titulo;
 		this.fecha = fecha;
@@ -64,6 +65,10 @@ public class Evento {
 	
 	public long getID() {return this.ID;}
 
+	public boolean hayHueco(){
+		return this.participantes.size() < aforo;
+	}
+
 
 	//GESTION INTERESES
 
@@ -87,6 +92,13 @@ public class Evento {
 
 	public void eliminarInteres(Interes interes) {
 		if(this.intereses.contains(interes)) intereses.remove(interes);
+	}
+
+	public boolean matchIntereses(List<Interes> intereses){
+		for (Interes interes : this.intereses) {
+			if (intereses.contains(interes)) return true;
+		}
+		return false;
 	}
 
 

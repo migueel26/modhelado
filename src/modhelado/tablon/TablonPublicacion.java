@@ -29,19 +29,16 @@ public class TablonPublicacion extends Tablon {
 	@Override
 	public int getSize() {return publicaciones.size();}
 
+	public void addPublicacion(Publicacion publicacion){
+		if (!publicaciones.contains(publicacion)) publicaciones.add(publicacion);
+	}
+	public void addPublicaciones(List<Publicacion> publicaciones){
+		for(Publicacion publicacion : publicaciones) addPublicacion(publicacion);
+	}
+
 	@Override
 	public void personalizar(List<Interes> intereses) {
-		// Debe devolver una lista de publicaciones de tipo Publicacion
-		List<Object> query = GestorBaseDatos.consultar("SELECT publicacion FROM publicaciones WITH intereses");
-		// Constraint: AlMenosUnInteres no hace falta pues se seleccionan desde la Base de Datos.
-
-		for (Object obj : query) {
-			if (obj instanceof Publicacion) {
-				this.publicaciones.add((Publicacion) obj);
-			} else {
-				System.err.println("Advertencia: El objeto de la BD no es una Publicacion.");
-			}
-		}
+		addPublicaciones(GestorBaseDatos.consultarPublicaiones(intereses));
 	}
 
 }

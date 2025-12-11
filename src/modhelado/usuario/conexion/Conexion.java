@@ -40,7 +40,7 @@ public class Conexion {
 	}
 
 	public String conexion() {
-		return "Estado entre " + emisor + " y " + receptor + ": " + estado.conexion(this);
+		return estado.conexion(this);
 	}
 
 	public void aceptar() {

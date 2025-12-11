@@ -51,15 +51,6 @@ public class Publicacion {
 		return this.ID;
 	}
 
-	// GESTIÓN INTERESES
-	public List<Interes> getIntereses(){
-		return this.intereses;
-	}
-
-	protected void addInteres(Interes interes) {
-		if (!intereses.contains(interes)) intereses.add(interes);
-	}
-	
 	public Usuario getCreador() {
 		return this.creador;
 	}
@@ -74,6 +65,16 @@ public class Publicacion {
 		usuarioLikes.remove(usuario);
 	}
 
+
+	// GESTIÓN INTERESES
+	public List<Interes> getIntereses(){
+		return this.intereses;
+	}
+
+	protected void addInteres(Interes interes) {
+		if (!intereses.contains(interes)) intereses.add(interes);
+	}
+
 	protected void addIntereses(List<Interes> intereses) {
 		for (Interes interes : intereses) {
 			if (!this.intereses.contains(interes)) this.intereses.add(interes);
@@ -82,5 +83,12 @@ public class Publicacion {
 
 	public void eliminarInteres(Interes interes) {
 		if (this.intereses.contains(interes)) intereses.remove(interes);
+	}
+
+	public boolean matchIntereses(List<Interes> intereses){
+		for (Interes interes : this.intereses) {
+			if (intereses.contains(interes)) return true;
+		}
+		return false;
 	}
 }

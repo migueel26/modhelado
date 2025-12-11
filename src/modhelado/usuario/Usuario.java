@@ -63,6 +63,9 @@ public class Usuario {
 	public String getApellidos(){return apellidos;}
 	public String getCorreo(){return correo;}
 	public String getFechaNacimiento(){return fechaNacimiento;}
+	public String getUsername() {
+		return username;
+	}
 
 
 
@@ -77,7 +80,7 @@ public class Usuario {
 
 	public void enviarSolicitud(Usuario usuario) {
 		// Constraint: ConexionUnicaParUsuarios
-		assert buscarConexion(usuario).isEmpty();
+		assert !this.equals(usuario) && buscarConexion(usuario).isEmpty();
 		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
 	}
 
@@ -110,7 +113,7 @@ public class Usuario {
 		}
 	}
 
-	private Optional<Conexion> buscarConexion(Usuario usuario) {
+	public Optional<Conexion> buscarConexion(Usuario usuario) {
 		Optional<Conexion> conexion = Optional.empty();
 		Iterator<Conexion> it = conexiones.iterator();
 		while (it.hasNext() && conexion.isEmpty()) {
@@ -122,6 +125,7 @@ public class Usuario {
 		}
 		return conexion;
 	}
+
 
 	public List<Conexion> getConexiones() {
 		return conexiones;
@@ -155,17 +159,17 @@ public class Usuario {
 		// Constraint: UsuarioVetado
 		assert !vetado;
 
-		assert titulo != null && fecha != null && aforo != null && lugar != null && !intereses.isEmpty();
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar, intereses);
-		//BBDD.guardarEvento(evento);
-		GestorBaseDatos.guardar(evento);
 		eventos.add(evento);
 		chats.add(evento.getChat());
+
+		//BBDD.guardarEvento(evento);
+		GestorBaseDatos.guardarEvento(evento);
 	}
 
 	public void accederEvento(Evento evento) {
 		// Constraint: UsuarioVetado
-		assert !vetado;
+		assert !vetado && evento.hayHueco();
 
 		evento.addUsuario(this);
 		if(!eventos.contains(evento)) {
@@ -182,9 +186,10 @@ public class Usuario {
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert !vetado && contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
-		//BBDD.guardarPublicacion(publicacion);
-		GestorBaseDatos.guardar(publicacion);
 		this.publicacionesCreadas.add(publicacion);
+
+		//BBDD.guardarPublicacion(publicacion);
+		GestorBaseDatos.guardarPublicacion(publicacion);
 	}
 
 	public void darLike(Publicacion publicacion) {
@@ -201,9 +206,6 @@ public class Usuario {
 
 	public TablonPublicacion getTablonPublicacion() {return tablonPublicacion;}
 
-	public String getUsername() {
-		return username;
-	}
 
 
 	//GESTIÓN CHATS

@@ -16,6 +16,8 @@ import static modhelado.interes.Musica.musica;
 public class Main {
 
     public static void main(String[] args) {
+
+        System.out.println("----------------- Wellcome to MyTriboo -----------------");
         //Crear varios usuarios
         System.out.println("-> Se crean 5 usuarios:");
         Usuario usuario1 = new Usuario("mariaa1", "María", "López","maria@gmail.com","01-01-2005");
@@ -41,8 +43,12 @@ public class Main {
         //Crear conexiones
         System.out.println("-> Se crean conexiones entre usuarios:");
             //usuario1 envía conexión a usuario2
+        System.out.println(usuario1.getUsername() + " envía solicitud a " + usuario2.getUsername());
         usuario1.enviarSolicitud(usuario2);
+        System.out.println("Estado: " + usuario1.buscarConexion(usuario2).get().conexion());
+        System.out.println(usuario2.getUsername() + " acepta la solicitud");
         usuario2.aceptarConexion(usuario1);
+        System.out.println("Estado: " + usuario1.buscarConexion(usuario2).get().conexion());
 
         usuario3.enviarSolicitud(usuario1);
         usuario1.bloquearConexion(usuario3);
