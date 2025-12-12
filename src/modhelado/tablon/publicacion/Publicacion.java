@@ -5,6 +5,7 @@ import modhelado.usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Publicacion {
 
@@ -90,5 +91,20 @@ public class Publicacion {
 			if (intereses.contains(interes)) return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder publicacion = new StringBuilder();
+		publicacion.append("Autor: " + creador.getUsername() +
+				"\nFecha de publicación: " + fecha +
+				"\nContenido: " + contenido +
+				"\nLikes: " + usuarioLikes.size() + "\n") ;
+
+		StringJoiner intereses = new StringJoiner(", ", "[", "]");
+		for (Interes interes : this.intereses){
+			intereses.add(interes.interes());
+		}
+		return publicacion.toString() + "Intereses: " + intereses.toString() + "\n";
 	}
 }

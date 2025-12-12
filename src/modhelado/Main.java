@@ -99,7 +99,7 @@ public class Main {
         System.out.println("Publicaciones usuario3:\n" + usuario3.getPublicacionesCreadas().toString());
         System.out.println("\n\n---------------------------------------------------------------");
 
-        //Acceder a los tablones del usuario 1
+        //Acceder a los tablones de los usuarios
         System.out.println("-> Tablones del usuario1:");
         usuario1.getTablonPublicacion().ver();
         usuario1.getTablonEventos().ver();
@@ -107,6 +107,18 @@ public class Main {
         System.out.println("-> Tablones del usuario2:");
         usuario2.getTablonPublicacion().ver();
         usuario2.getTablonEventos().ver();
+
+        System.out.println("-> Tablones del usuario3:");
+        usuario3.getTablonPublicacion().ver();
+        usuario3.getTablonEventos().ver();
+
+        System.out.println("-> Tablones del usuario4:");
+        usuario4.getTablonPublicacion().ver();
+        usuario4.getTablonEventos().ver();
+
+        System.out.println("-> Tablones del usuario5:");
+        usuario5.getTablonPublicacion().ver();
+        usuario5.getTablonEventos().ver();
         System.out.println("\n\n---------------------------------------------------------------");
 
 
@@ -130,5 +142,13 @@ public class Main {
 
 
         //Usuario vetado
+        System.out.println("-> A un usuario vetado no se le permiten ciertas acciones en el sistema:");
+        System.out.println("Vetamos al usuario4: ");
+        usuario4.setVetado(true);
+        usuario4.getTablonEventos().ver();
+        usuario4.getTablonPublicacion().ver();
+        System.out.println("El usuario vetado no puede ver eventos ni publicaciones de otros usuarios.");
+
+        System.out.println("\n\n---------------------------------------------------------------");
     }
 }
