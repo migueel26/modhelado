@@ -179,6 +179,10 @@ context Conexion
             c | (c.usuario1 <> self.usuario1 or c.usuario2 <> self.usuario2) and 
                 (c.usuario1 <> self.usuario2 or c.usuario2 <> self.usuario1)
         )
+    
+    -- Un usuario vetado no puede mantener conexiones con otros usuarios
+    inv usuarioVetadoNoPuedeConectar:
+        self.usuario1.vetado <> false and self.usuario2.vetado <> false
 
 
 context Usuario
@@ -211,10 +215,18 @@ context TablonEventos
     inv alMenosUnInteres:
         self.eventos->forAll(intereses->intersection(self.usuario.intereses)->size() > 0)
 
+    -- Un usuario vetado no puede acceder a su tablón de eventos
+    inv usuarioVetadoNoPuedeVerEventos:
+        self.usuario.vetado = false
+
 context TablonPublicaciones
     -- Análogo al de TablonEventos
     inv alMenosUnInteres:
         self.publicaciones->forAll(intereses->intersection(self.usuario.intereses)->size() > 0)
+
+    -- Un usuario vetado no puede acceder a su tablón de publicaciones
+    inv usuarioVetadoNoPuedeVerPublicaciones:
+        self.usuario.vetado = false
 
 context ChatPrivado
     -- Para que un chat privado exista entre 2 usuarios deben tener una conexión con estado Aceptada
@@ -230,3 +242,8 @@ context ChatPrivado
     -- con otro (usuario) más de una vez.
     -- inv chatPrivadoUsuariosDiferentes:
     --     self.usuarios->isUnique(nombreUsuario)
+
+context Publicacion
+    -- Un usuario vetado no podrá crear publicaciones
+    inv usuarioVetadoNoCreaPublicaciones:
+        self.usuario.vetado = false
