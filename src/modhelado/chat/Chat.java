@@ -38,10 +38,18 @@ public class Chat {
 		if(usuarios.contains(remitente)){
 			Mensaje nuevoMensaje = new Mensaje(texto, fechaActual, remitente);
 			this.historial.add(nuevoMensaje);
-			System.out.println("Mensaje enviado por " + remitente.getUsername() + ": " + texto);
 		}else{
 			System.out.println("Error: El usuario no pertenece a este chat");
 		}
+	}
+
+	public String toString() {
+		StringBuilder chat = new StringBuilder();
+		for (Mensaje mensaje : historial) {
+			chat.append(mensaje.toString() + "\n");
+		}
+
+		return chat.toString();
 	}
 
 }

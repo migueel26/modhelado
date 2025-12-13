@@ -1,6 +1,9 @@
 package modhelado.chat;
 
+import modhelado.interes.Interes;
 import modhelado.usuario.Usuario;
+
+import java.util.StringJoiner;
 
 public class Mensaje {
 
@@ -24,5 +27,12 @@ public class Mensaje {
 
 	public Usuario getRemitente() {
 		return remitente;
+	}
+
+	public String toString() {
+		StringBuilder mensaje = new StringBuilder();
+		mensaje.append("[" + fecha + "] " + remitente.getUsername() + ": " + texto + "\n");
+
+		return mensaje.toString();
 	}
 }

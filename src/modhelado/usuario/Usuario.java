@@ -88,7 +88,13 @@ public class Usuario {
 		assert conexion != null;
 		if (!conexiones.contains(conexion)) {
 			conexiones.add(conexion);
-			chats.add(conexion.getChat());
+		}
+	}
+
+	public void addChat(Chat chat){
+		assert chat != null;
+		if(!chats.contains(chat)){
+			chats.add(chat);
 		}
 	}
 
@@ -151,6 +157,10 @@ public class Usuario {
 		return Collections.enumeration(intereses);
 	}
 
+	public String verIntereses(){
+		return intereses.toString();
+	}
+
 	public void addInteres(Interes interes, String descripcion) {
 		assert interes != null && descripcion != null;
 		intereses.add(new DescripcionInteres(descripcion, this, interes));
@@ -169,6 +179,13 @@ public class Usuario {
 	//GESTIÓN EVENTOS
 	public Enumeration<Evento> getEventos() {
 		return Collections.enumeration(eventos);
+	}
+
+	public void verEventos() {
+		System.out.println("Eventos creados por " + username + ":");
+		for(Evento evento : eventos){
+			System.out.println(evento + "\n");
+		}
 	}
 
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
@@ -216,6 +233,13 @@ public class Usuario {
 		return Collections.enumeration(publicacionesCreadas);
 	}
 
+	public void verPublicaciones(){
+		System.out.println("Publicaciones creadas por " + username + ":");
+		for(Publicacion publicacion : publicacionesCreadas){
+			System.out.println(publicacion + "\n");
+		}
+	}
+
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert !vetado && contenido != null && fecha != null;
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
@@ -258,9 +282,16 @@ public class Usuario {
 
 	public void enviarMensaje(String mensaje, Chat chat) {
 		assert chat != null && mensaje != null && !vetado;
-		chat.enviarMensaje(this, new Date().toString(), mensaje);
+		chat.enviarMensaje(this, mensaje, new Date().toString());
 	}
 
+	public String ver(Chat chat) {
+		return chat.toString();
+	}
+
+
+
+	//OVERRIDE
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Usuario that

@@ -38,6 +38,10 @@ public class Conexion {
 
 	public void aceptar() {
 		estado.aceptar(this);
+		if(estado.equals(Aceptada.aceptada())){
+			emisor.addChat(chat);
+			receptor.addChat(chat);
+		}
 	}
 
 	public void cancelar(Usuario bloqueador, Usuario bloqueado) {

@@ -1,13 +1,13 @@
 package modhelado;
 
+import modhelado.chat.Chat;
 import modhelado.interes.DescripcionInteres;
 import modhelado.interes.Interes;
 import modhelado.tablon.evento.Evento;
 import modhelado.usuario.Usuario;
 import modhelado.usuario.conexion.Conexion;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static modhelado.interes.Ciencia.ciencia;
 import static modhelado.interes.Cine.cine;
@@ -17,7 +17,6 @@ import static modhelado.interes.Musica.musica;
 import static modhelado.interes.Tecnologia.tecnologia;
 
 public class Main {
-
     public static void main(String[] args) {
 
         System.out.println("----------------- Wellcome to MyTriboo! -----------------");
@@ -45,11 +44,11 @@ public class Main {
         usuario5.addInteres(cine(), "Cine español");
         usuario5.addInteres(literatura(), "Ciencia ficción");
 
-        System.out.println("Intereses usuario1: "+ usuario1.getIntereses().toString());
-        System.out.println("Intereses usuario2: "+ usuario2.getIntereses().toString());
-        System.out.println("Intereses usuario3: "+ usuario3.getIntereses().toString());
-        System.out.println("Intereses usuario4: "+ usuario4.getIntereses().toString());
-        System.out.println("Intereses usuario5: "+ usuario5.getIntereses().toString());
+        System.out.println("Intereses usuario1: "+ usuario1.verIntereses());
+        System.out.println("Intereses usuario2: "+ usuario2.verIntereses());
+        System.out.println("Intereses usuario3: "+ usuario3.verIntereses());
+        System.out.println("Intereses usuario4: "+ usuario4.verIntereses());
+        System.out.println("Intereses usuario5: "+ usuario5.verIntereses());
         System.out.println("\n\n---------------------------------------------------------------");
 
 
@@ -76,8 +75,21 @@ public class Main {
         usuario4.bloquearConexion(usuario5);
         System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
         System.out.println(usuario4.getUsername() + " desbloquea a " + usuario5.getUsername());
-        usuario4.cancelarConexion(usuario5);
+
+        try{
+            usuario5.cancelarConexion(usuario4);
+        } catch (AssertionError e){
+            System.out.println("---> ERROR: usuario 5 no puede desbloquear al que lo bloqueó (usuario4)");
+        }
         System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
+
+        usuario4.cancelarConexion(usuario5);
+        try {
+            System.out.println("Estado: " + usuario4.buscarConexion(usuario5).orElseThrow().conexion());
+        } catch (NoSuchElementException e){
+            System.out.println("---> ERROR: no existe la conexión entre usuario4 y usuario5");
+        }
+
         System.out.println("\n\n---------------------------------------------------------------");
 
 
@@ -86,8 +98,8 @@ public class Main {
         usuario1.crearEvento("Museo del cine", "20-04-2026", 10, "Museo cine Málaga", "Ir a visitar el museo del cine de Málaga una tarde", List.of(cine()));
         usuario4.crearEvento("Concierto música clásica", "05-02-2026", 6, "Avenida Andalucía", "¿A quién no le gusta un concierto?", List.of(musica()));
 
-        System.out.println("Eventos usuario1:\n" + usuario1.getEventos().toString());
-        System.out.println("Eventos usuario4:\n" + usuario4.getEventos().toString());
+        usuario1.verEventos();
+        usuario4.verEventos();
         System.out.println("\n\n---------------------------------------------------------------");
 
 
@@ -96,8 +108,8 @@ public class Main {
         usuario2.crearPublicacion("Nueva película de Marvel!!", "10-12-2025", List.of(cine()));
         usuario3.crearPublicacion("Nuevo lanzamiento de disco!", "14-12-2025", List.of(musica()));
 
-        System.out.println("Publicaciones usuario2:\n" + usuario2.getPublicacionesCreadas().toString());
-        System.out.println("Publicaciones usuario3:\n" + usuario3.getPublicacionesCreadas().toString());
+        usuario2.verPublicaciones();
+        usuario3.verPublicaciones();
         System.out.println("\n\n---------------------------------------------------------------");
 
         //Acceder a los tablones de los usuarios
@@ -139,6 +151,9 @@ public class Main {
 
         //Chat privado
         System.out.println("-> Los usuarios participan en chats privados:");
+        Chat chat1_2 = usuario1.buscarConexion(usuario2).get().getChat();
+        usuario1.enviarMensaje("HOLAAA", chat1_2);
+        System.out.println(chat1_2);
 
         System.out.println("\n\n---------------------------------------------------------------");
 

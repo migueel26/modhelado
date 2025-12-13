@@ -24,9 +24,9 @@ public class TablonEventos extends Tablon {
 	@Override
 	public void ver() {
 		personalizar(intereses);
-		System.out.println("Eventos para ti" + "\n");
+		System.out.println("Eventos para ti\n");
 		for(Evento evento : eventos){
-			System.out.println(evento.toString());
+			System.out.println(evento + "\n");
 		}
 	}
 
