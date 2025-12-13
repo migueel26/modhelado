@@ -6,6 +6,8 @@ import modhelado.tablon.evento.Evento;
 import modhelado.tablon.publicacion.Publicacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 public class TablonPublicacion extends Tablon {
@@ -42,7 +44,11 @@ public class TablonPublicacion extends Tablon {
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
-		addPublicaciones(GestorBaseDatos.consultarPublicaiones(intereses));
+		// Se llama cada vez que un usuario accede al tablón
+		publicaciones = GestorBaseDatos.consultarPublicaiones(intereses);
 	}
 
+	public Enumeration<Publicacion> getPublicaciones() {
+		return Collections.enumeration(publicaciones);
+	}
 }

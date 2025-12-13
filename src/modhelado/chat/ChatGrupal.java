@@ -3,20 +3,10 @@ package modhelado.chat;
 import modhelado.usuario.Usuario;
 
 public class ChatGrupal extends Chat {
-
-	/**
-	 * 
-	 * @param creador
-	 * @param fecha
-	 */
 	public ChatGrupal(Usuario creador, String fecha) {
 		super(creador, fecha);
 	}
 
-	/**
-	 * 
-	 * @param usuario
-	 */
 	public void addUsuario(Usuario usuario) {
 		if(!this.usuarios.contains(usuario)){
 			this.usuarios.add(usuario);
@@ -26,10 +16,6 @@ public class ChatGrupal extends Chat {
 		}
 	}
 
-	/**
-	 * 
-	 * @param usuario
-	 */
 	public void eliminarUsuario(Usuario usuario) {
 		if (this.usuarios.contains(usuario)) {
 			this.usuarios.remove(usuario);

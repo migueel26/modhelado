@@ -8,11 +8,6 @@ public class Mensaje {
 	private String fecha;
 	private Usuario remitente;
 
-	/**
-	 * 
-	 * @param texto
-	 * @param fecha
-	 */
 	public Mensaje(String texto, String fecha, Usuario remitente) {
 		this.texto = texto;
 		this.fecha = fecha;

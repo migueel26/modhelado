@@ -6,6 +6,8 @@ import modhelado.tablon.evento.Evento;
 import modhelado.GestorBaseDatos.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 
@@ -37,9 +39,13 @@ public class TablonEventos extends Tablon {
 	public void addEventos(List<Evento> eventos){
 		for(Evento evento : eventos) addEvento(evento);
 	}
+	public Enumeration<Evento> getEventos() {
+		return Collections.enumeration(eventos);
+	}
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
-		addEventos(GestorBaseDatos.consultarEventos(intereses));
+		// Se llama cada vez que un usuario accede al tablón
+		eventos = GestorBaseDatos.consultarEventos(intereses);
 	}
 }

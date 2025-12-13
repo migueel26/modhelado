@@ -77,6 +77,7 @@ public class Main {
         System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
         System.out.println(usuario4.getUsername() + " desbloquea a " + usuario5.getUsername());
         usuario4.cancelarConexion(usuario5);
+        System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
         System.out.println("\n\n---------------------------------------------------------------");
 
 
@@ -124,7 +125,8 @@ public class Main {
 
         //Unirse a eventos
         System.out.println("-> Los usuarios se unen a eventos:");
-        //usuario2.accederEvento();
+        // Se une al primero, por ejemplo
+        usuario2.accederEvento(usuario2.getTablonEventos().getEventos().nextElement());
 
         System.out.println("\n\n---------------------------------------------------------------");
 

@@ -3,6 +3,7 @@ package modhelado.usuario.conexion;
 import modhelado.chat.ChatPrivado;
 import modhelado.usuario.Usuario;
 
+import java.util.Date;
 import java.util.StringJoiner;
 
 public class Conexion {
@@ -12,23 +13,15 @@ public class Conexion {
 	private Usuario receptor;
 	private ChatPrivado chat;
 
-	/**
-	 * 
-	 * @param emisor
-	 * @param receptor
-	 * @param fecha
-	 */
-	public Conexion(Usuario emisor, Usuario receptor, String fecha, EstadoConexion estado) {
+	public Conexion(Usuario emisor, Usuario receptor, EstadoConexion estado) {
 		// Constraint: ConexionUsuariosDistintos
 		assert !emisor.equals(receptor);
-		// Constraint: AntiguedadConEstadoPendiente
-		assert estado.equals(Aceptada.aceptada()) || fecha == null;
 
 		this.emisor = emisor;
 		this.receptor = receptor;
-		this.fecha = fecha;
 		this.estado = estado;
-		this.chat = new ChatPrivado(emisor, receptor, fecha);
+		this.fecha = null;
+		this.chat = null;
 
 		emisor.addConexion(this);
 		receptor.addConexion(this);
@@ -47,8 +40,8 @@ public class Conexion {
 		estado.aceptar(this);
 	}
 
-	public void cancelar(Usuario bloqueador) {
-		estado.cancelar(this, bloqueador);
+	public void cancelar(Usuario bloqueador, Usuario bloqueado) {
+		estado.cancelar(this, bloqueador, bloqueado);
 	}
 
 	public void bloquear(Usuario bloqueador) {
@@ -76,7 +69,15 @@ public class Conexion {
 	public Usuario getReceptor() {
 		return receptor;
 	}
-	public ChatPrivado getChat(){return chat;}
+	public ChatPrivado getChat() {
+		return chat;
+	}
+
+	public void crearChatPrivado() {
+		String fecha = new Date().toString();
+		this.chat = new ChatPrivado(emisor, receptor, fecha);
+		this.fecha = fecha;
+	}
 
 	@Override
 	public String toString() {

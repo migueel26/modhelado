@@ -6,16 +6,10 @@ import modhelado.chat.ChatGrupal;
 import modhelado.interes.Interes;
 import modhelado.usuario.Usuario;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Evento {
-
 	private List<Interes> intereses;
-	private long ID;
-	protected static long contadorIDs = 0;
 	private String titulo;
 	private String fecha;
 	private Integer aforo;
@@ -34,6 +28,7 @@ public class Evento {
 	 */
 	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
 		assert titulo != null && fecha != null && aforo > 0 && lugar != null && !intereses.isEmpty();
+
 		this.intereses = intereses;
 		this.titulo = titulo;
 		this.fecha = fecha;
@@ -42,7 +37,6 @@ public class Evento {
 		this.descripcion = descripcion;
 		this.creador = creador;
 		this.chatGrupal = new ChatGrupal(creador, new Date().toString());
-		this.ID = contadorIDs++;
 
 		this.participantes = new ArrayList<>();
 		participantes.add(creador);
@@ -64,15 +58,13 @@ public class Evento {
 	public String getLugar() {return lugar;}
 
 	public void setLugar(String lugar) {this.lugar = lugar;}
-	
-	public long getID() {return this.ID;}
 
 	public boolean hayHueco(){
 		return this.participantes.size() < aforo;
 	}
 
 
-	//GESTION INTERESES
+	// GESTION INTERESES
 
 	public List<Interes> getIntereses() {
 		return intereses;
@@ -105,12 +97,11 @@ public class Evento {
 
 
 	// GESTION USUARIOS
-
 	public void addUsuario(Usuario usuario) {
 		// Constraint: ParticipantesNoSuperaAforo
 		assert participantes.size() < aforo;
 
-		if(!participantes.contains(usuario)) {
+		if (!participantes.contains(usuario)) {
 			participantes.add(usuario);
 			chatGrupal.addUsuario(usuario);
 		}
@@ -120,7 +111,12 @@ public class Evento {
 		// Constraint: CreadorEventoTambienAsistente
 		assert !usuario.equals(creador);
 
+		chatGrupal.eliminarUsuario(usuario);
 		participantes.remove(usuario);
+	}
+
+	public Enumeration<Usuario> getParticipantes() {
+		return Collections.enumeration(participantes);
 	}
 	
 	public Usuario getCreador() {
@@ -128,7 +124,7 @@ public class Evento {
 	}
 
 	// GESTION CHAT GRUPAL
-	public Chat getChat(){
+	public ChatGrupal getChat(){
 		return chatGrupal;
 	}
 
@@ -145,5 +141,18 @@ public class Evento {
 			intereses.add(interes.interes());
 		}
 		return evento.toString() + "Intereses: " + intereses.toString() + "\n";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Evento that
+				&& this.creador.equals(that.creador)
+				&& this.titulo.equalsIgnoreCase(that.titulo)
+				&& this.fecha.equalsIgnoreCase(that.fecha);
+	}
+
+	@Override
+	public int hashCode() {
+		return creador.hashCode() + titulo.toLowerCase().hashCode() + fecha.toLowerCase().hashCode();
 	}
 }

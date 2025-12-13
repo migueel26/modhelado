@@ -18,9 +18,10 @@ public class Bloqueada implements EstadoConexion {
     }
 
     @Override
-    public void cancelar(Conexion conexion, Usuario bloqueador) {
+    public void cancelar(Conexion conexion, Usuario cancelador, Usuario cancelado) {
         // Desbloquear
-        assert conexion != null && conexion.getEmisor().equals(bloqueador);
+        assert conexion != null;
+        assert conexion.getEmisor().equals(cancelador);
         conexion.getEmisor().borrarConexion(conexion);
         conexion.getReceptor().borrarConexion(conexion);
     }

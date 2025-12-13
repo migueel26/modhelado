@@ -22,7 +22,7 @@ public class Aceptada implements EstadoConexion {
 	}
 
 	@Override
-	public void cancelar(Conexion conexion, Usuario bloqueador) {
+	public void cancelar(Conexion conexion, Usuario cancelador, Usuario cancelado) {
 		assert conexion != null;
 		conexion.getEmisor().borrarConexion(conexion);
 		conexion.getReceptor().borrarConexion(conexion);

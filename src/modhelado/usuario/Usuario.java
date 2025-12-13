@@ -35,8 +35,10 @@ public class Usuario {
 
 	//CONSTRUCTOR
 	public Usuario(String username, String nombre, String apellidos, String correo, String fechaNacimiento) {
-		assert GestorBaseDatos.consultar("SELECT username FROM USUARIOS WHERE username = '" + username + "'").isEmpty();
-		this.username = username;
+		// Constraint: NombresUsuarioDistintos
+		assert GestorBaseDatos.consultarUsuario(username).isEmpty();
+
+		this.username = username.toLowerCase();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.correo = correo;
@@ -50,19 +52,31 @@ public class Usuario {
 		this.tablonPublicacion = new TablonPublicacion();
 		this.publicacionesCreadas = new ArrayList<>();
 		this.chats = new ArrayList<>();
+
+		GestorBaseDatos.guardarUsuario(this);
 	}
 
 
 
 	//GESTIÓN USUARIO
-	public boolean getEstadoVetado(){return vetado;}
+	public boolean getEstadoVetado() {
+		return vetado;
+	}
 	public void setVetado(boolean vetado) {
 		this.vetado = vetado;
 	}
-	public String getNombre(){return nombre;}
-	public String getApellidos(){return apellidos;}
-	public String getCorreo(){return correo;}
-	public String getFechaNacimiento(){return fechaNacimiento;}
+	public String getNombre() {
+		return nombre;
+	}
+	public String getApellidos() {
+		return apellidos;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -81,7 +95,7 @@ public class Usuario {
 	public void enviarSolicitud(Usuario usuario) {
 		// Constraint: ConexionUnicaParUsuarios
 		assert !this.equals(usuario) && buscarConexion(usuario).isEmpty();
-		new Conexion(this, usuario, new Date().toString(), Pendiente.pendiente());
+		new Conexion(this, usuario, Pendiente.pendiente());
 	}
 
 	public void aceptarConexion(Usuario usuario) {
@@ -95,7 +109,7 @@ public class Usuario {
 	public void cancelarConexion(Usuario usuario) {
 		Optional<Conexion> conexion = buscarConexion(usuario);
         if (conexion.isPresent()) {
-			conexion.get().cancelar(usuario);
+			conexion.get().cancelar(this, usuario);
 		}
 	}
 
@@ -109,7 +123,7 @@ public class Usuario {
 			// Constraint: ConexionUnicaParUsuarios
 			conexion.get().bloquear(this);
 		} else {
-			new Conexion(this, usuario, new Date().toString(), Bloqueada.bloqueada());
+			new Conexion(this, usuario, Bloqueada.bloqueada());
 		}
 	}
 
@@ -127,14 +141,14 @@ public class Usuario {
 	}
 
 
-	public List<Conexion> getConexiones() {
-		return conexiones;
+	public Enumeration<Conexion> getConexiones() {
+		return Collections.enumeration(conexiones);
 	}
 
 
 	//GESTIÓN INTERESES
-	public List<DescripcionInteres> getIntereses() {
-		return intereses;
+	public Enumeration<DescripcionInteres> getIntereses() {
+		return Collections.enumeration(intereses);
 	}
 
 	public void addInteres(Interes interes, String descripcion) {
@@ -153,18 +167,28 @@ public class Usuario {
 	}
 
 	//GESTIÓN EVENTOS
-	public List<Evento> getEventos(){return eventos;}
+	public Enumeration<Evento> getEventos() {
+		return Collections.enumeration(eventos);
+	}
 
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
 		// Constraint: UsuarioVetado
 		assert !vetado;
 
 		Evento evento = new Evento(this, titulo, fecha, aforo, lugar,descripcion, intereses);
+
+		assert !eventos.contains(evento);
+
 		eventos.add(evento);
 		chats.add(evento.getChat());
 
 		//BBDD.guardarEvento(evento);
 		GestorBaseDatos.guardarEvento(evento);
+	}
+
+	public void eliminarEvento(Evento evento) {
+		assert evento.getCreador().equals(this);
+		GestorBaseDatos.eliminarEvento(evento);
 	}
 
 	public void accederEvento(Evento evento) {
@@ -178,10 +202,19 @@ public class Usuario {
 		}
 	}
 
+	public void quitarseEvento(Evento evento) {
+		assert evento != null && eventos.contains(evento) && !evento.getCreador().equals(this);
+		evento.eliminarUsuario(this);
+		chats.remove(evento.getChat());
+		eventos.remove(evento);
+	}
 
 
-	//GESTIÓN PUBLICACIONES
-	public List<Publicacion> getPublicacionesCreadas(){return publicacionesCreadas;}
+
+	// GESTIÓN PUBLICACIONES
+	public Enumeration<Publicacion> getPublicacionesCreadas() {
+		return Collections.enumeration(publicacionesCreadas);
+	}
 
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {
 		assert !vetado && contenido != null && fecha != null;
@@ -190,6 +223,12 @@ public class Usuario {
 
 		//BBDD.guardarPublicacion(publicacion);
 		GestorBaseDatos.guardarPublicacion(publicacion);
+	}
+
+	public void eliminarPublicacion(Publicacion publicacion) {
+		assert publicacion != null && publicacion.getCreador().equals(this);
+		publicacionesCreadas.remove(publicacion);
+		GestorBaseDatos.eliminarPublicacion(publicacion);
 	}
 
 	public void darLike(Publicacion publicacion) {
@@ -201,16 +240,20 @@ public class Usuario {
 		publicacion.quitarLike(this);
 	}
 
-	//GESTIÓN TABLONES
-	public TablonEventos getTablonEventos() {return tablonEventos;}
+	// GESTIÓN TABLONES
+	public TablonEventos getTablonEventos() {
+		return tablonEventos;
+	}
 
-	public TablonPublicacion getTablonPublicacion() {return tablonPublicacion;}
+	public TablonPublicacion getTablonPublicacion() {
+		return tablonPublicacion;
+	}
 
 
 
-	//GESTIÓN CHATS
-	public List<Chat> getChats(){
-		return chats;
+	// GESTIÓN CHATS
+	public Enumeration<Chat> getChats() {
+		return Collections.enumeration(chats);
 	}
 
 	public void enviarMensaje(String mensaje, Chat chat) {
@@ -218,5 +261,14 @@ public class Usuario {
 		chat.enviarMensaje(this, new Date().toString(), mensaje);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Usuario that
+				&& this.username.equalsIgnoreCase(that.username);
+	}
 
+	@Override
+	public int hashCode() {
+		return username.toLowerCase().hashCode();
+	}
 }

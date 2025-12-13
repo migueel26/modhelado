@@ -19,10 +19,11 @@ public class Pendiente implements EstadoConexion {
 	public void aceptar(Conexion conexion) {
 		assert conexion != null;
 		conexion.cambiarEstado(Aceptada.aceptada());
+		conexion.crearChatPrivado();
 	}
 
 	@Override
-	public void cancelar(Conexion conexion, Usuario bloqueador) {
+	public void cancelar(Conexion conexion, Usuario cancelador, Usuario cancelado) {
 		assert conexion != null;
 		conexion.getEmisor().borrarConexion(conexion);
 		conexion.getReceptor().borrarConexion(conexion);

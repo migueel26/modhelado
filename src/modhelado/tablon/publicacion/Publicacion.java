@@ -3,9 +3,7 @@ package modhelado.tablon.publicacion;
 import modhelado.interes.Interes;
 import modhelado.usuario.Usuario;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Publicacion {
 
@@ -14,28 +12,21 @@ public class Publicacion {
 	private String contenido;
 	private List<Usuario> usuarioLikes;
 	private Usuario creador;
-	private long ID;
-	protected static int contadorIDs = 0;
-	/**
-	 * 
-	 * @param fecha
-	 * @param contenido
-	 */
+
 	public Publicacion(Usuario creador, String fecha, String contenido, List<Interes> intereses) {
 		this.intereses = intereses;
 		this.fecha = fecha;
 		this.contenido = contenido;
 		this.usuarioLikes = new ArrayList<>();
 		this.creador = creador;
-		this.ID = contadorIDs++;
 	}
 
 	public int getLikes() {
 		return usuarioLikes.size();
 	}
 
-	public List<Usuario> getUsuarioLikes() {
-		return usuarioLikes;
+	public Enumeration<Usuario> getUsuarioLikes() {
+		return Collections.enumeration(usuarioLikes);
 	}
 
 	public String getContenido() {
@@ -48,16 +39,13 @@ public class Publicacion {
 	public String getFecha() {
 		return this.fecha;
 	}
-	public long getID() {
-		return this.ID;
-	}
 
 	public Usuario getCreador() {
 		return this.creador;
 	}
 
 	public void darLike(Usuario usuario) {
-		//TODO: CONSTRAINT
+		// No se puede dar like a la misma publicación más de una vez
 		assert !usuarioLikes.contains(usuario);
 		usuarioLikes.add(usuario);
 	}
@@ -68,8 +56,8 @@ public class Publicacion {
 
 
 	// GESTIÓN INTERESES
-	public List<Interes> getIntereses(){
-		return this.intereses;
+	public Enumeration<Interes> getIntereses() {
+		return Collections.enumeration(intereses);
 	}
 
 	protected void addInteres(Interes interes) {
@@ -95,16 +83,23 @@ public class Publicacion {
 
 	@Override
 	public String toString() {
-		StringBuilder publicacion = new StringBuilder();
-		publicacion.append("Autor: " + creador.getUsername() +
-				"\nFecha de publicación: " + fecha +
-				"\nContenido: " + contenido +
-				"\nLikes: " + usuarioLikes.size() + "\n") ;
+        String publicacion = "Autor: " + creador.getUsername() +
+                "\nFecha de publicación: " + fecha +
+                "\nContenido: " + contenido +
+                "\nLikes: " + usuarioLikes.size() + "\n";
 
 		StringJoiner intereses = new StringJoiner(", ", "[", "]");
-		for (Interes interes : this.intereses){
+		for (Interes interes : this.intereses) {
 			intereses.add(interes.interes());
 		}
-		return publicacion.toString() + "Intereses: " + intereses.toString() + "\n";
+		return publicacion + "Intereses: " + intereses + "\n";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Publicacion that
+				&& this.creador.equals(that.creador)
+				&& this.contenido.equals(that.contenido)
+				&& this.fecha.equalsIgnoreCase(that.fecha);
 	}
 }
