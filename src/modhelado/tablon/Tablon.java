@@ -1,6 +1,7 @@
 package modhelado.tablon;
 
 import modhelado.interes.Interes;
+import modhelado.usuario.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,12 @@ import java.util.List;
 public abstract class Tablon {
 
 	protected List<Interes> intereses;
+	protected String propietario;
 
-	protected Tablon(){this.intereses = new ArrayList<>();}
+	protected Tablon(String username_propietario) {
+		this.intereses = new ArrayList<>();
+		this.propietario = username_propietario;
+	}
 
 	public abstract void ver();
 

@@ -2,7 +2,6 @@ package modhelado.tablon;
 
 import modhelado.GestorBaseDatos;
 import modhelado.interes.Interes;
-import modhelado.tablon.evento.Evento;
 import modhelado.tablon.publicacion.Publicacion;
 
 import java.util.ArrayList;
@@ -14,8 +13,8 @@ public class TablonPublicacion extends Tablon {
 
 	private List<Publicacion> publicaciones;
 
-	public TablonPublicacion() {
-		super();
+	public TablonPublicacion(String username_propietario) {
+		super(username_propietario);
 		this.publicaciones = new ArrayList<>();
 	}
 
@@ -26,9 +25,13 @@ public class TablonPublicacion extends Tablon {
 	@Override
 	public void ver() {
 		personalizar(intereses);
-		System.out.println("Publicaciones para ti\n");
-		for(Publicacion publicacion : publicaciones){
-			System.out.println(publicacion + "\n");
+		System.out.println("Publicaciones para " + propietario);
+		if(!publicaciones.isEmpty()) {
+			for(Publicacion publicacion : publicaciones){
+				System.out.println(publicacion);
+			}
+		} else {
+			System.out.println("\tEste usuario no tiene publicaciones en su tablón.");
 		}
 	}
 
@@ -45,10 +48,16 @@ public class TablonPublicacion extends Tablon {
 	@Override
 	public void personalizar(List<Interes> intereses) {
 		// Se llama cada vez que un usuario accede al tablón
-		publicaciones = GestorBaseDatos.consultarPublicaiones(intereses);
+		publicaciones.clear();
+		for(Publicacion publicacion: GestorBaseDatos.consultarPublicaciones(intereses)){
+			if(!publicacion.getCreador().getUsername().equals(propietario)){
+				publicaciones.add(publicacion);
+			}
+		}
 	}
 
 	public Enumeration<Publicacion> getPublicaciones() {
+		personalizar(intereses);
 		return Collections.enumeration(publicaciones);
 	}
 }

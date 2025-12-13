@@ -16,18 +16,23 @@ public class TablonEventos extends Tablon {
 
 	private List<Evento> eventos;
 
-	public TablonEventos() {
-		super();
+	public TablonEventos(String username_propietario) {
+		super(username_propietario);
 		this.eventos = new ArrayList<>();
 	}
 
 	@Override
 	public void ver() {
 		personalizar(intereses);
-		System.out.println("Eventos para ti\n");
-		for(Evento evento : eventos){
-			System.out.println(evento + "\n");
+		System.out.println("Eventos para " + propietario);
+		if(!eventos.isEmpty()){
+			for(Evento evento : eventos){
+				System.out.println(evento);
+			}
+		} else {
+			System.out.println("\tEste usuario no tiene eventos en su tablón.");
 		}
+
 	}
 
 	@Override
@@ -40,12 +45,18 @@ public class TablonEventos extends Tablon {
 		for(Evento evento : eventos) addEvento(evento);
 	}
 	public Enumeration<Evento> getEventos() {
+		personalizar(intereses);
 		return Collections.enumeration(eventos);
 	}
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
 		// Se llama cada vez que un usuario accede al tablón
-		eventos = GestorBaseDatos.consultarEventos(intereses);
+		eventos.clear();
+		for(Evento evento: GestorBaseDatos.consultarEventos(intereses)){
+			if(!evento.getCreador().getUsername().equals(propietario)){
+				eventos.add(evento);
+			}
+		}
 	}
 }

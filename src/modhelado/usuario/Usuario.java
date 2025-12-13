@@ -48,8 +48,8 @@ public class Usuario {
 		this.intereses = new ArrayList<>();
 		this.conexiones = new ArrayList<>();
 		this.eventos = new ArrayList<>();
-		this.tablonEventos = new TablonEventos();
-		this.tablonPublicacion = new TablonPublicacion();
+		this.tablonEventos = new TablonEventos(username);
+		this.tablonPublicacion = new TablonPublicacion(username);
 		this.publicacionesCreadas = new ArrayList<>();
 		this.chats = new ArrayList<>();
 
@@ -181,10 +181,15 @@ public class Usuario {
 	}
 
 	public void verEventos() {
-		System.out.println("Eventos creados por " + username + ":");
-		for(Evento evento : eventos){
-			System.out.println(evento + "\n");
+		System.out.println("--> Eventos creados por " + username + ":");
+		if (!eventos.isEmpty()) {
+			for(Evento evento : eventos){
+				System.out.println(evento);
+			}
+		} else{
+			System.out.println("Este usuario no tiene aún eventos creados.\n");
 		}
+
 	}
 
 	public void crearEvento(String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
@@ -233,10 +238,15 @@ public class Usuario {
 	}
 
 	public void verPublicaciones(){
-		System.out.println("Publicaciones creadas por " + username + ":");
-		for(Publicacion publicacion : publicacionesCreadas){
-			System.out.println(publicacion + "\n");
+		System.out.println("--> Publicaciones creadas por " + username + ":");
+		if(!publicacionesCreadas.isEmpty()){
+			for(Publicacion publicacion : publicacionesCreadas){
+				System.out.println(publicacion);
+			}
+		} else {
+			System.out.println("Este usuario no tiene aún publicaciones creadas.\n");
 		}
+
 	}
 
 	public void crearPublicacion(String contenido, String fecha, List<Interes> intereses) {

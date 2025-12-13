@@ -2,6 +2,8 @@ package modhelado;
 
 import java.util.*;
 import modhelado.chat.*;
+import modhelado.tablon.evento.Evento;
+import modhelado.tablon.publicacion.Publicacion;
 import modhelado.usuario.*;
 
 import static modhelado.interes.Ciencia.ciencia;
@@ -32,7 +34,11 @@ public class Main {
         usuario1.addInteres(deporte(), "Baloncesto");
         usuario1.addInteres(ciencia(), "Física");
         usuario2.addInteres(cine(), "Titanic");
+        usuario2.addInteres(deporte(), "Ping pong");
+        usuario2.addInteres(musica(), "Música clásica");
         usuario3.addInteres(tecnologia(), "Avances Inteligencia Artificial");
+        usuario3.addInteres(deporte(), "Atletismo");
+        usuario3.addInteres(ciencia(), "Química");
         usuario4.addInteres(musica(), "Pop");
         usuario4.addInteres(cine(), "Cine español");
         usuario4.addInteres(literatura(), "Ciencia ficción");
@@ -59,7 +65,7 @@ public class Main {
         usuario2.aceptarConexion(usuario1);
         System.out.println("\tEstado: " + usuario1.buscarConexion(usuario2).get().conexion());
 
-        System.out.println("\nUsuario3 --> Usuario1");
+        System.out.println("\nUsuario3 x--> Usuario1");
         System.out.println(usuario3.getUsername() + " envía solicitud a " + usuario1.getUsername());
         usuario3.enviarSolicitud(usuario1);
         System.out.println("\tEstado: " + usuario1.buscarConexion(usuario3).get().conexion());
@@ -74,7 +80,7 @@ public class Main {
             System.out.println("\t---> ERROR: no hay estado porque no existe la conexión entre " + usuario1.getUsername() + " y " + usuario3.getUsername());
         }
 
-        System.out.println("\nUsuario4 --| Usuario5");
+        System.out.println("\nUsuario4 --x Usuario5");
         System.out.println(usuario4.getUsername() + " bloquea a " + usuario5.getUsername());
         usuario4.bloquearConexion(usuario5);
         System.out.println("\tEstado: " + usuario4.buscarConexion(usuario5).get().conexion());
@@ -104,52 +110,95 @@ public class Main {
         System.out.println("\n\n---------------------------------------------------------------");
 
 
+
         //Crear eventos
         System.out.println("-> Se crean eventos por parte de los usuarios:");
-        usuario1.crearEvento("Museo del cine", "20-04-2026", 10, "Museo cine Málaga", "Ir a visitar el museo del cine de Málaga una tarde", List.of(cine()));
+        usuario1.crearEvento("Museo del cine", "20-04-2026", 2, "Museo cine Málaga", "Ir a visitar el museo del cine de Málaga una tarde", List.of(cine()));
+        usuario1.crearEvento("Feria de la ciencia y el deporte", "13-06-2026", 20, "Universidad", "Asistir a la feria de la ciencia y el deporte 2026", List.of(ciencia(),tecnologia(),deporte()));
         usuario4.crearEvento("Concierto música clásica", "05-02-2026", 6, "Avenida Andalucía", "¿A quién no le gusta un concierto?", List.of(musica()));
 
-        usuario1.verEventos();
-        usuario4.verEventos();
+        usuario1.verEventos(); //2 eventos creados por usuario1
+        usuario2.verEventos();
+        usuario3.verEventos();
+        usuario4.verEventos(); //1 evento creado por usuario4
+        usuario5.verEventos();
         System.out.println("\n\n---------------------------------------------------------------");
 
 
         //Crear publicaciones
         System.out.println("-> Se crean publicaciones por parte de los usuarios:");
         usuario2.crearPublicacion("Nueva película de Marvel!!", "10-12-2025", List.of(cine()));
-        usuario3.crearPublicacion("Nuevo lanzamiento de disco!", "14-12-2025", List.of(musica()));
+        usuario3.crearPublicacion("Este fin de semana es el mundial!", "20-11-2025", List.of(deporte()));
+        usuario4.crearPublicacion("Nuevo lanzamiento de disco!", "14-10-2025", List.of(musica()));
+        usuario5.crearPublicacion("Un nuevo asteroide en el sistema solar", "05-12-2025", List.of(ciencia()));
 
-        usuario2.verPublicaciones();
-        usuario3.verPublicaciones();
+        usuario1.verPublicaciones();
+        usuario2.verPublicaciones(); //1 publicacion creada
+        usuario3.verPublicaciones(); //1 publicacion creada
+        usuario4.verPublicaciones(); //1 publicacion creada
+        usuario5.verPublicaciones(); //1 publicacion creada
         System.out.println("\n\n---------------------------------------------------------------");
 
+
+
+        System.out.println("-> Usuarios le dan like a publicaciones:");
+        Publicacion publicacion1 = usuario1.getTablonPublicacion().getPublicaciones().nextElement();
+        System.out.println("Usuario1 da like a la primera publicación de su tablón");
+        usuario1.darLike(publicacion1);
+        System.out.println(publicacion1);
+        System.out.println("Usuario1 quita el like a una publicación");
+        usuario1.quitarLike(publicacion1);
+        System.out.println(publicacion1);
+        System.out.println("Usuario1 vuelve a quitar el like a una publicación (no pasa nada)");
+        usuario1.quitarLike(publicacion1);
+        System.out.println(publicacion1);
+        System.out.println("\n\n---------------------------------------------------------------");
+
+
+
+        System.out.println("-> Se muestran los dos tablones de cada usuario:");
         //Acceder a los tablones de los usuarios
-        System.out.println("-> Tablones del usuario1:");
-        usuario1.getTablonPublicacion().ver();
+        System.out.println("--> Tablones del usuario1:");
         usuario1.getTablonEventos().ver();
+        usuario1.getTablonPublicacion().ver();
 
-        System.out.println("-> Tablones del usuario2:");
-        usuario2.getTablonPublicacion().ver();
+        System.out.println("\n--> Tablones del usuario2:");
         usuario2.getTablonEventos().ver();
+        usuario2.getTablonPublicacion().ver();
 
-        System.out.println("-> Tablones del usuario3:");
-        usuario3.getTablonPublicacion().ver();
+        System.out.println("\n--> Tablones del usuario3:");
         usuario3.getTablonEventos().ver();
+        usuario3.getTablonPublicacion().ver();
 
-        System.out.println("-> Tablones del usuario4:");
-        usuario4.getTablonPublicacion().ver();
+        System.out.println("\n--> Tablones del usuario4:");
         usuario4.getTablonEventos().ver();
+        usuario4.getTablonPublicacion().ver();
 
-        System.out.println("-> Tablones del usuario5:");
-        usuario5.getTablonPublicacion().ver();
+        System.out.println("\n--> Tablones del usuario5:");
         usuario5.getTablonEventos().ver();
+        usuario5.getTablonPublicacion().ver();
         System.out.println("\n\n---------------------------------------------------------------");
+
 
 
         //Unirse a eventos
         System.out.println("-> Los usuarios se unen a eventos:");
-        // Se une al primero, por ejemplo
-        usuario2.accederEvento(usuario2.getTablonEventos().getEventos().nextElement());
+        System.out.println("--> Caso con aforo disponible:");
+        Evento evento1 = usuario2.getTablonEventos().getEventos().nextElement();
+        evento1.verParticipantes();
+        System.out.println("Usuario2 accede al primer evento de su tablón");
+        usuario2.accederEvento(evento1);
+        evento1.verParticipantes();
+
+        System.out.println("\n--> Caso con aforo no disponible:");
+        Evento evento2 = usuario4.getTablonEventos().getEventos().nextElement();
+        evento2.verParticipantes();
+        try{
+            usuario4.accederEvento(evento2);
+        } catch (AssertionError e){
+            System.out.println("El usuario no puede acceder al evento porque el aforo es máximo.");
+        }
+        evento2.verParticipantes();
 
         System.out.println("\n\n---------------------------------------------------------------");
 

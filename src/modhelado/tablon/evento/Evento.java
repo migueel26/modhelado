@@ -110,13 +110,23 @@ public class Evento {
 	public void eliminarUsuario(Usuario usuario) {
 		// Constraint: CreadorEventoTambienAsistente
 		assert !usuario.equals(creador);
-
-		chatGrupal.eliminarUsuario(usuario);
-		participantes.remove(usuario);
+		if (participantes.contains(usuario)) {
+			chatGrupal.eliminarUsuario(usuario);
+			participantes.remove(usuario);
+		}
 	}
 
 	public Enumeration<Usuario> getParticipantes() {
 		return Collections.enumeration(participantes);
+	}
+
+	public void verParticipantes(){
+		System.out.println("Participantes del evento:");
+		StringJoiner integrantes = new StringJoiner(", ", "[", "]");
+		for (Usuario participante: participantes){
+			integrantes.add(participante.getUsername());
+		}
+		System.out.println(integrantes);
 	}
 	
 	public Usuario getCreador() {
@@ -130,17 +140,17 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		StringBuilder evento = new StringBuilder();
-		evento.append("Titulo: " + titulo +
-					"\nSe celebra el " + fecha + " en " + lugar +
-					"\nAforo máximo: " + aforo+
-					"\nDescripción: " + descripcion + "\n") ;
+        String evento = "Titulo: " + titulo +
+                "\nSe celebra el " + fecha + " en " + lugar +
+                "\nAforo máximo: " + aforo +
+                "\nDescripción: " + descripcion +
+                "\nCreador: " + creador.getUsername() + "\n";
 
 		StringJoiner intereses = new StringJoiner(", ", "[", "]");
 		for (Interes interes : this.intereses){
 			intereses.add(interes.interes());
 		}
-		return evento.toString() + "Intereses: " + intereses.toString() + "\n";
+		return evento + "Intereses: " + intereses.toString() + "\n";
 	}
 
 	@Override

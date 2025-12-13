@@ -54,7 +54,7 @@ public class GestorBaseDatos {
         if (!publicaciones.contains(publicacion)) publicaciones.add(publicacion);
     }
 
-    public static List<Publicacion> consultarPublicaiones(List<Interes> intereses) {
+    public static List<Publicacion> consultarPublicaciones(List<Interes> intereses) {
         List<Publicacion> publicacionesUsuario = new ArrayList<>();
         for (Publicacion publicacion : publicaciones) {
             if (publicacion.matchIntereses(intereses)) publicacionesUsuario.add(publicacion);
