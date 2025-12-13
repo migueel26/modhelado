@@ -31,7 +31,7 @@ public class Mensaje {
 
 	public String toString() {
 		StringBuilder mensaje = new StringBuilder();
-		mensaje.append("[" + fecha + "] " + remitente.getUsername() + ": " + texto + "\n");
+		mensaje.append("[" + fecha + "] " + remitente.getUsername() + ": " + texto);
 
 		return mensaje.toString();
 	}

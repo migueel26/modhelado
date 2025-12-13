@@ -1,5 +1,0 @@
-INDEX VERSION 1.131+C:\Users\juan\Desktop\Malaga\Modelado\Trabajo\modhelado\.metadata\.plugins\org.eclipse.jdt.core
-3400596590.index
-839179469.index
-1865797976.index
-3771867596.index

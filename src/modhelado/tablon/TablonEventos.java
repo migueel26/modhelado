@@ -41,9 +41,7 @@ public class TablonEventos extends Tablon {
 	public void addEvento(Evento evento){
 		if (!eventos.contains(evento)) eventos.add(evento);
 	}
-	public void addEventos(List<Evento> eventos){
-		for(Evento evento : eventos) addEvento(evento);
-	}
+
 	public Enumeration<Evento> getEventos() {
 		personalizar(intereses);
 		return Collections.enumeration(eventos);
@@ -55,7 +53,7 @@ public class TablonEventos extends Tablon {
 		eventos.clear();
 		for(Evento evento: GestorBaseDatos.consultarEventos(intereses)){
 			if(!evento.getCreador().getUsername().equals(propietario)){
-				eventos.add(evento);
+				addEvento(evento);
 			}
 		}
 	}

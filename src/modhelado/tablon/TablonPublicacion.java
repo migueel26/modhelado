@@ -41,9 +41,6 @@ public class TablonPublicacion extends Tablon {
 	public void addPublicacion(Publicacion publicacion){
 		if (!publicaciones.contains(publicacion)) publicaciones.add(publicacion);
 	}
-	public void addPublicaciones(List<Publicacion> publicaciones){
-		for(Publicacion publicacion : publicaciones) addPublicacion(publicacion);
-	}
 
 	@Override
 	public void personalizar(List<Interes> intereses) {
@@ -51,7 +48,7 @@ public class TablonPublicacion extends Tablon {
 		publicaciones.clear();
 		for(Publicacion publicacion: GestorBaseDatos.consultarPublicaciones(intereses)){
 			if(!publicacion.getCreador().getUsername().equals(propietario)){
-				publicaciones.add(publicacion);
+				addPublicacion(publicacion);
 			}
 		}
 	}

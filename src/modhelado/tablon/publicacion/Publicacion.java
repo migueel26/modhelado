@@ -86,7 +86,7 @@ public class Publicacion {
         String publicacion = "Autor: " + creador.getUsername() +
                 "\nFecha de publicación: " + fecha +
                 "\nContenido: " + contenido +
-                "\nLikes: " + usuarioLikes.size() + "\n";
+                "\nLikes: " + getLikes() + "\n";
 
 		StringJoiner intereses = new StringJoiner(", ", "[", "]");
 		for (Interes interes : this.intereses) {

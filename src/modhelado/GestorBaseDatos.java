@@ -12,14 +12,7 @@ public class GestorBaseDatos {
     private static List<Publicacion> publicaciones = new ArrayList<>();
     private static List<Evento> eventos = new ArrayList<>();
     private static List<Usuario> usuarios = new ArrayList<>();
-	
-    public static List<Object> consultar(String consulta) {
-        return Collections.emptyList();
-    }
-    
-    public static void guardar(Object object) {
 
-    }
 
     public static void guardarUsuario(Usuario usuario) {
         if (!usuarios.contains(usuario)) usuarios.add(usuario);

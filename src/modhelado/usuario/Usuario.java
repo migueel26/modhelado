@@ -100,7 +100,7 @@ public class Usuario {
 
 	public void enviarSolicitud(Usuario usuario) {
 		// Constraint: ConexionUnicaParUsuarios
-		assert !this.equals(usuario) && buscarConexion(usuario).isEmpty();
+		assert !this.equals(usuario) && buscarConexion(usuario).isEmpty() && !vetado;
 		new Conexion(this, usuario, Pendiente.pendiente());
 	}
 
@@ -203,7 +203,6 @@ public class Usuario {
 		eventos.add(evento);
 		chats.add(evento.getChat());
 
-		//BBDD.guardarEvento(evento);
 		GestorBaseDatos.guardarEvento(evento);
 	}
 
@@ -254,7 +253,6 @@ public class Usuario {
 		Publicacion publicacion = new Publicacion(this, fecha, contenido, intereses);
 		this.publicacionesCreadas.add(publicacion);
 
-		//BBDD.guardarPublicacion(publicacion);
 		GestorBaseDatos.guardarPublicacion(publicacion);
 	}
 
@@ -275,10 +273,12 @@ public class Usuario {
 
 	// GESTIÓN TABLONES
 	public TablonEventos getTablonEventos() {
+		assert !vetado;
 		return tablonEventos;
 	}
 
 	public TablonPublicacion getTablonPublicacion() {
+		assert !vetado;
 		return tablonPublicacion;
 	}
 
@@ -294,8 +294,8 @@ public class Usuario {
 		chat.enviarMensaje(this, mensaje, new Date().toString());
 	}
 
-	public String ver(Chat chat) {
-		return chat.toString();
+	public void verChat (Chat chat) {
+		System.out.println(chat);
 	}
 
 

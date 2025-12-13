@@ -19,13 +19,7 @@ public class Evento {
 	private List<Usuario> participantes;
 	private ChatGrupal chatGrupal;
 
-	/**
-	 *
-	 * @param titulo
-	 * @param fecha
-	 * @param aforo
-	 * @param lugar
-	 */
+
 	public Evento(Usuario creador, String titulo, String fecha, Integer aforo, String lugar, String descripcion, List<Interes> intereses) {
 		assert titulo != null && fecha != null && aforo > 0 && lugar != null && !intereses.isEmpty();
 
