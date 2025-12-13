@@ -170,6 +170,23 @@
         <name>TablonMuestraPublicaciones</name>
         <properties>
             <edgeproperty
+                id="TablonMuestraPublicaciones::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>TablonMuestraPublicaciones</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>TablonMuestraPublicaciones::WayPoint::0</related0>
+                        <related1>TablonMuestraPublicaciones::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="TablonMuestraPublicaciones::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -199,19 +216,16 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="TablonMuestraPublicaciones::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="false" visible="true">
-                <name>TablonMuestraPublicaciones</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>TablonMuestraPublicaciones::WayPoint::0</related0>
-                        <related1>TablonMuestraPublicaciones::WayPoint::1</related1>
-                    </related>
+                id="TablonMuestraPublicaciones::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>tablon</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>9.0</userOffsetY>
+                    <attached>TablonMuestraPublicaciones::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -227,20 +241,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="TablonMuestraPublicaciones::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>tablon</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>4.0</userOffsetX>
-                    <userOffsetY>9.0</userOffsetY>
-                    <attached>TablonMuestraPublicaciones::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -285,6 +285,22 @@
         <target>Publicacion</target>
         <name>LeGusta</name>
         <properties>
+            <edgeproperty id="LeGusta::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>LeGusta</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-175.0</userOffsetX>
+                    <userOffsetY>178.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>LeGusta::WayPoint::0</related0>
+                        <related1>LeGusta::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="LeGusta::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>usuarios</name>
@@ -312,19 +328,16 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="LeGusta::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>LeGusta</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-175.0</userOffsetX>
-                    <userOffsetY>178.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>LeGusta::WayPoint::0</related0>
-                        <related1>LeGusta::WayPoint::2</related1>
-                    </related>
+            <edgeproperty id="LeGusta::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>publicacionesGustadas</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>12.0</userOffsetX>
+                    <userOffsetY>-12.0</userOffsetY>
+                    <attached>LeGusta::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -339,19 +352,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="LeGusta::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>publicacionesGustadas</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>12.0</userOffsetX>
-                    <userOffsetY>-12.0</userOffsetY>
-                    <attached>LeGusta::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -415,6 +415,23 @@
         <name>PublicacionContieneIntereses</name>
         <properties>
             <edgeproperty
+                id="PublicacionContieneIntereses::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>PublicacionContieneIntereses</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-172.0</userOffsetX>
+                    <userOffsetY>101.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>PublicacionContieneIntereses::WayPoint::0</related0>
+                        <related1>PublicacionContieneIntereses::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="PublicacionContieneIntereses::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>intereses</name>
@@ -440,23 +457,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="PublicacionContieneIntereses::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>PublicacionContieneIntereses</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-172.0</userOffsetX>
-                    <userOffsetY>101.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>PublicacionContieneIntereses::WayPoint::0</related0>
-                        <related1>PublicacionContieneIntereses::WayPoint::2</related1>
-                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -548,6 +548,22 @@
         <target>TablonEventos</target>
         <name>TieneTablonEventos</name>
         <properties>
+            <edgeproperty id="TieneTablonEventos::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>TieneTablonEventos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>8.0</userOffsetX>
+                    <userOffsetY>-77.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>TieneTablonEventos::WayPoint::0</related0>
+                        <related1>TieneTablonEventos::WayPoint::3</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="TieneTablonEventos::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
@@ -575,19 +591,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="TieneTablonEventos::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>TieneTablonEventos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>8.0</userOffsetX>
-                    <userOffsetY>-77.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>TieneTablonEventos::WayPoint::0</related0>
-                        <related1>TieneTablonEventos::WayPoint::3</related1>
-                    </related>
+            <edgeproperty id="TieneTablonEventos::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>TieneTablonEventos::WayPoint::3</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -601,20 +615,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="TieneTablonEventos::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>TieneTablonEventos::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -681,6 +681,22 @@
         <target>Evento</target>
         <name>EventoContieneIntereses</name>
         <properties>
+            <edgeproperty id="EventoContieneIntereses::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>EventoContieneIntereses</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>97.0</userOffsetX>
+                    <userOffsetY>138.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>EventoContieneIntereses::WayPoint::0</related0>
+                        <related1>EventoContieneIntereses::WayPoint::3</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="EventoContieneIntereses::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>intereses</name>
@@ -709,19 +725,16 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="EventoContieneIntereses::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>EventoContieneIntereses</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>97.0</userOffsetX>
-                    <userOffsetY>138.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>EventoContieneIntereses::WayPoint::0</related0>
-                        <related1>EventoContieneIntereses::WayPoint::3</related1>
-                    </related>
+            <edgeproperty id="EventoContieneIntereses::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>eventos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>14.0</userOffsetX>
+                    <userOffsetY>-9.0</userOffsetY>
+                    <attached>EventoContieneIntereses::WayPoint::3</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -737,19 +750,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="EventoContieneIntereses::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>eventos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>14.0</userOffsetX>
-                    <userOffsetY>-9.0</userOffsetY>
-                    <attached>EventoContieneIntereses::WayPoint::3</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -816,17 +816,19 @@
         <target>ChatEvento</target>
         <name>TieneChat</name>
         <properties>
-            <edgeproperty id="TieneChat::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>TieneChat::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+            <edgeproperty id="TieneChat::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>TieneChat</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>30.0</userOffsetX>
+                    <userOffsetY>16.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>TieneChat::WayPoint::0</related0>
+                        <related1>TieneChat::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -843,19 +845,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="TieneChat::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>TieneChat</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>30.0</userOffsetX>
-                    <userOffsetY>16.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>TieneChat::WayPoint::0</related0>
-                        <related1>TieneChat::WayPoint::1</related1>
-                    </related>
+            <edgeproperty id="TieneChat::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>TieneChat::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -927,35 +927,6 @@
         <target>TablonPublicaciones</target>
         <name>TieneTablonPublicaciones</name>
         <properties>
-            <edgeproperty
-                id="TieneTablonPublicaciones::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>TieneTablonPublicaciones::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="TieneTablonPublicaciones::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>usuario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>32.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>TieneTablonPublicaciones::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="TieneTablonPublicaciones::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
@@ -973,16 +944,31 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
-                id="TieneTablonPublicaciones::target::rolename"
+                id="TieneTablonPublicaciones::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>tablonPub</name>
+                <name>usuario</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>9.0</userOffsetY>
-                    <attached>TieneTablonPublicaciones::WayPoint::3</attached>
+                    <userOffsetX>32.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>TieneTablonPublicaciones::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="TieneTablonPublicaciones::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>TieneTablonPublicaciones::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -998,6 +984,20 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="TieneTablonPublicaciones::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>tablonPub</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>7.0</userOffsetX>
+                    <userOffsetY>9.0</userOffsetY>
+                    <attached>TieneTablonPublicaciones::WayPoint::3</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1071,6 +1071,22 @@
         <target>ChatPrivado</target>
         <name>MantieneChat</name>
         <properties>
+            <edgeproperty id="MantieneChat::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>MantieneChat</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-129.0</userOffsetX>
+                    <userOffsetY>96.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>MantieneChat::WayPoint::0</related0>
+                        <related1>MantieneChat::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="MantieneChat::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>usuarios</name>
@@ -1095,22 +1111,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="MantieneChat::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>MantieneChat</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-129.0</userOffsetX>
-                    <userOffsetY>96.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>MantieneChat::WayPoint::0</related0>
-                        <related1>MantieneChat::WayPoint::2</related1>
-                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1200,18 +1200,19 @@
         <target>TablonEventos</target>
         <name>TablonMuestraEventos</name>
         <properties>
-            <edgeproperty
-                id="TablonMuestraEventos::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+            <edgeproperty id="TablonMuestraEventos::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
-                <name>1..*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>8.0</userOffsetY>
-                    <attached>TablonMuestraEventos::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                <name>TablonMuestraEventos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>1.0</userOffsetX>
+                    <userOffsetY>1.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>TablonMuestraEventos::WayPoint::0</related0>
+                        <related1>TablonMuestraEventos::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1228,19 +1229,18 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="TablonMuestraEventos::AssociationName"
-                sizeCalculated="true" type="associationName"
+            <edgeproperty
+                id="TablonMuestraEventos::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
-                <name>TablonMuestraEventos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>1.0</userOffsetX>
-                    <userOffsetY>1.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>TablonMuestraEventos::WayPoint::0</related0>
-                        <related1>TablonMuestraEventos::WayPoint::1</related1>
-                    </related>
+                <name>1..*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>8.0</userOffsetY>
+                    <attached>TablonMuestraEventos::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1306,16 +1306,19 @@
         <target>Evento</target>
         <name>Asiste</name>
         <properties>
-            <edgeproperty id="Asiste::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>asistentes</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>-10.0</userOffsetY>
-                    <attached>Asiste::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
+            <edgeproperty id="Asiste::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>Asiste</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-1.0</userOffsetX>
+                    <userOffsetY>4.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>Asiste::WayPoint::0</related0>
+                        <related1>Asiste::WayPoint::1</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1333,19 +1336,16 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Asiste::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>Asiste</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-1.0</userOffsetX>
-                    <userOffsetY>4.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>Asiste::WayPoint::0</related0>
-                        <related1>Asiste::WayPoint::1</related1>
-                    </related>
+            <edgeproperty id="Asiste::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>asistentes</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>-10.0</userOffsetY>
+                    <attached>Asiste::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1416,33 +1416,6 @@
         <target>Publicacion</target>
         <name>CreaPublicaciones</name>
         <properties>
-            <edgeproperty id="CreaPublicaciones::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="false" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>0.0</userOffsetY>
-                    <attached>CreaPublicaciones::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="CreaPublicaciones::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>usuario</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>10.0</userOffsetY>
-                    <attached>CreaPublicaciones::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="CreaPublicaciones::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
@@ -1459,14 +1432,27 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="CreaPublicaciones::target::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>*</name>
+            <edgeproperty id="CreaPublicaciones::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>usuario</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>10.0</userOffsetX>
+                    <userOffsetX>6.0</userOffsetX>
                     <userOffsetY>10.0</userOffsetY>
-                    <attached>CreaPublicaciones::WayPoint::2</attached>
+                    <attached>CreaPublicaciones::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="CreaPublicaciones::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>CreaPublicaciones::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
@@ -1483,6 +1469,20 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="CreaPublicaciones::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>10.0</userOffsetX>
+                    <userOffsetY>10.0</userOffsetY>
+                    <attached>CreaPublicaciones::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1545,6 +1545,22 @@
         <target>Evento</target>
         <name>CreaEventos</name>
         <properties>
+            <edgeproperty id="CreaEventos::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>CreaEventos</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-1.0</userOffsetX>
+                    <userOffsetY>2.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>CreaEventos::WayPoint::0</related0>
+                        <related1>CreaEventos::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="CreaEventos::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>usuarioCreador</name>
@@ -1572,19 +1588,16 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="CreaEventos::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>CreaEventos</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-1.0</userOffsetX>
-                    <userOffsetY>2.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>CreaEventos::WayPoint::0</related0>
-                        <related1>CreaEventos::WayPoint::1</related1>
-                    </related>
+            <edgeproperty id="CreaEventos::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>eventosCreados</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>11.0</userOffsetX>
+                    <userOffsetY>-8.0</userOffsetY>
+                    <attached>CreaEventos::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1599,19 +1612,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="CreaEventos::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>eventosCreados</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>11.0</userOffsetX>
-                    <userOffsetY>-8.0</userOffsetY>
-                    <attached>CreaEventos::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1663,6 +1663,22 @@
         <target>Mensaje</target>
         <name>EscribeMensajes</name>
         <properties>
+            <edgeproperty id="EscribeMensajes::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="true" visible="true">
+                <name>EscribeMensajes</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-193.0</userOffsetX>
+                    <userOffsetY>107.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>EscribeMensajes::WayPoint::0</related0>
+                        <related1>EscribeMensajes::WayPoint::2</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
             <edgeproperty id="EscribeMensajes::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
@@ -1690,19 +1706,16 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="EscribeMensajes::AssociationName"
-                sizeCalculated="true" type="associationName"
-                userDefined="true" visible="true">
-                <name>EscribeMensajes</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-193.0</userOffsetX>
-                    <userOffsetY>107.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>EscribeMensajes::WayPoint::0</related0>
-                        <related1>EscribeMensajes::WayPoint::2</related1>
-                    </related>
+            <edgeproperty id="EscribeMensajes::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>mensajes</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>10.0</userOffsetX>
+                    <userOffsetY>7.0</userOffsetY>
+                    <attached>EscribeMensajes::WayPoint::2</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1717,19 +1730,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="EscribeMensajes::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>mensajes</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>10.0</userOffsetX>
-                    <userOffsetY>7.0</userOffsetY>
-                    <attached>EscribeMensajes::WayPoint::2</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1792,33 +1792,6 @@
         <target>Mensaje</target>
         <name>ContieneMensaje</name>
         <properties>
-            <edgeproperty id="ContieneMensaje::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
-                userDefined="true" visible="true">
-                <name>1</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>17.0</userOffsetX>
-                    <userOffsetY>-1.0</userOffsetY>
-                    <attached>ContieneMensaje::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty id="ContieneMensaje::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>chat</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>4.0</userOffsetX>
-                    <userOffsetY>-1.0</userOffsetY>
-                    <attached>ContieneMensaje::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty id="ContieneMensaje::AssociationName"
                 sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
@@ -1835,16 +1808,30 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="ContieneMensaje::target::rolename"
+            <edgeproperty id="ContieneMensaje::source::rolename"
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>mensajes</name>
+                <name>chat</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>5.0</userOffsetY>
-                    <attached>ContieneMensaje::WayPoint::1</attached>
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>-1.0</userOffsetY>
+                    <attached>ContieneMensaje::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContieneMensaje::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="true" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>17.0</userOffsetX>
+                    <userOffsetY>-1.0</userOffsetY>
+                    <attached>ContieneMensaje::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1859,6 +1846,19 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty id="ContieneMensaje::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>mensajes</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>6.0</userOffsetX>
+                    <userOffsetY>5.0</userOffsetY>
+                    <attached>ContieneMensaje::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1896,17 +1896,19 @@
         <target>Interes</target>
         <name>Descripcion</name>
         <properties>
-            <edgeproperty id="Descripcion::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+            <edgeproperty id="Descripcion::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>10.0</userOffsetX>
-                    <userOffsetY>7.0</userOffsetY>
-                    <attached>Descripcion::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                <name>Descripcion</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-80.0</userOffsetX>
+                    <userOffsetY>-21.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>Descripcion::WayPoint::0</related0>
+                        <related1>Descripcion::WayPoint::2</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -1923,19 +1925,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Descripcion::AssociationName"
-                sizeCalculated="true" type="associationName"
+            <edgeproperty id="Descripcion::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
-                <name>Descripcion</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-80.0</userOffsetX>
-                    <userOffsetY>-21.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>Descripcion::WayPoint::0</related0>
-                        <related1>Descripcion::WayPoint::2</related1>
-                    </related>
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>10.0</userOffsetX>
+                    <userOffsetY>7.0</userOffsetY>
+                    <attached>Descripcion::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -2051,17 +2051,19 @@
         <target>Usuario</target>
         <name>Conexion</name>
         <properties>
-            <edgeproperty id="Conexion::source::multiplicity"
-                sizeCalculated="true" type="multiplicity"
+            <edgeproperty id="Conexion::AssociationName"
+                sizeCalculated="true" type="associationName"
                 userDefined="true" visible="true">
-                <name>*</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>9.0</userOffsetX>
-                    <userOffsetY>-4.0</userOffsetY>
-                    <attached>Conexion::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>BOTTOM</placement>
+                <name>Conexion</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>-14.0</userOffsetX>
+                    <userOffsetY>16.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>Conexion::WayPoint::2</related0>
+                        <related1>Conexion::WayPoint::3</related1>
+                    </related>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -2078,19 +2080,17 @@
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
-            <edgeproperty id="Conexion::AssociationName"
-                sizeCalculated="true" type="associationName"
+            <edgeproperty id="Conexion::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
                 userDefined="true" visible="true">
-                <name>Conexion</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
-                    <userOffsetX>-14.0</userOffsetX>
-                    <userOffsetY>16.0</userOffsetY>
-                    <offsetX>0.0</offsetX>
-                    <offsetY>-10.0</offsetY>
-                    <related length="2">
-                        <related0>Conexion::WayPoint::2</related0>
-                        <related1>Conexion::WayPoint::3</related1>
-                    </related>
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>9.0</userOffsetX>
+                    <userOffsetY>-4.0</userOffsetY>
+                    <attached>Conexion::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>

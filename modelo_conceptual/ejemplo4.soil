@@ -58,7 +58,7 @@ reset
 
 !insert (u1, e1) into Asiste
 !insert (u1, e2) into Asiste
-!insert (u1, e3) into Asiste -- Esto es lo que produce el fallo del invariante
+--!insert (u1, e3) into Asiste -- Esto es lo que produce el fallo del invariante
 
 
 -- 5. Indicamos que los eventos han sido creados por el admin
