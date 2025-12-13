@@ -1,13 +1,8 @@
 package modhelado;
 
-import modhelado.chat.Chat;
-import modhelado.interes.DescripcionInteres;
-import modhelado.interes.Interes;
-import modhelado.tablon.evento.Evento;
-import modhelado.usuario.Usuario;
-import modhelado.usuario.conexion.Conexion;
-
 import java.util.*;
+import modhelado.chat.*;
+import modhelado.usuario.*;
 
 import static modhelado.interes.Ciencia.ciencia;
 import static modhelado.interes.Cine.cine;
@@ -35,14 +30,15 @@ public class Main {
         System.out.println("-> Se asocian intereses a los usuarios:");
         usuario1.addInteres(cine(), "Harry Potter");
         usuario1.addInteres(deporte(), "Baloncesto");
+        usuario1.addInteres(ciencia(), "Física");
         usuario2.addInteres(cine(), "Titanic");
         usuario3.addInteres(tecnologia(), "Avances Inteligencia Artificial");
-        usuario3.addInteres(ciencia(), "Física");
-        usuario4.addInteres(deporte(), "Natación");
-        usuario4.addInteres(ciencia(), "Biología");
-        usuario5.addInteres(musica(), "Pop");
-        usuario5.addInteres(cine(), "Cine español");
-        usuario5.addInteres(literatura(), "Ciencia ficción");
+        usuario4.addInteres(musica(), "Pop");
+        usuario4.addInteres(cine(), "Cine español");
+        usuario4.addInteres(literatura(), "Ciencia ficción");
+        usuario5.addInteres(deporte(), "Natación");
+        usuario5.addInteres(ciencia(), "Biología");
+
 
         System.out.println("Intereses usuario1: "+ usuario1.verIntereses());
         System.out.println("Intereses usuario2: "+ usuario2.verIntereses());
@@ -54,40 +50,55 @@ public class Main {
 
         //Crear conexiones
         System.out.println("-> Se crean conexiones entre usuarios:");
-            //usuario1 envía conexión a usuario2
-        System.out.println("Usuarion1 - Usuario2");
+            //usuario1 envía solicitud a usuario2 //usuario2 acepta la solicitud del usuario1
+        System.out.println("Usuario1 <--> Usuario2");
         System.out.println(usuario1.getUsername() + " envía solicitud a " + usuario2.getUsername());
         usuario1.enviarSolicitud(usuario2);
-        System.out.println("Estado: " + usuario1.buscarConexion(usuario2).get().conexion());
-        System.out.println(usuario2.getUsername() + " acepta la solicitud");
+        System.out.println("\tEstado: " + usuario1.buscarConexion(usuario2).get().conexion());
+        System.out.println(usuario2.getUsername() + " acepta la solicitud de " + usuario1.getUsername());
         usuario2.aceptarConexion(usuario1);
-        System.out.println("Estado: " + usuario1.buscarConexion(usuario2).get().conexion());
+        System.out.println("\tEstado: " + usuario1.buscarConexion(usuario2).get().conexion());
 
-        System.out.println("\nUsuario3 - Usuario1");
+        System.out.println("\nUsuario3 --> Usuario1");
         System.out.println(usuario3.getUsername() + " envía solicitud a " + usuario1.getUsername());
         usuario3.enviarSolicitud(usuario1);
-        System.out.println("Estado: " + usuario1.buscarConexion(usuario3).get().conexion());
+        System.out.println("\tEstado: " + usuario1.buscarConexion(usuario3).get().conexion());
+        System.out.println(usuario1.getUsername() + " bloquea a " + usuario3.getUsername());
         usuario1.bloquearConexion(usuario3);
-        System.out.println("Estado: " + usuario1.buscarConexion(usuario3).get().conexion());
+        System.out.println("\tEstado: " + usuario1.buscarConexion(usuario3).get().conexion());
+        System.out.println(usuario1.getUsername() + " desbloquea a " + usuario3.getUsername());
+        usuario1.cancelarConexion(usuario3);
+        try {
+            System.out.println("\tEstado: " + usuario1.buscarConexion(usuario3).get().conexion());
+        } catch (NoSuchElementException e){
+            System.out.println("\t---> ERROR: no hay estado porque no existe la conexión entre " + usuario1.getUsername() + " y " + usuario3.getUsername());
+        }
 
-        System.out.println("\nUsuario4 - Usuario5");
+        System.out.println("\nUsuario4 --| Usuario5");
         System.out.println(usuario4.getUsername() + " bloquea a " + usuario5.getUsername());
         usuario4.bloquearConexion(usuario5);
-        System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
-        System.out.println(usuario4.getUsername() + " desbloquea a " + usuario5.getUsername());
-
+        System.out.println("\tEstado: " + usuario4.buscarConexion(usuario5).get().conexion());
+        System.out.println(usuario5.getUsername() + " desbloquea a " + usuario4.getUsername());
         try{
             usuario5.cancelarConexion(usuario4);
         } catch (AssertionError e){
-            System.out.println("---> ERROR: usuario 5 no puede desbloquear al que lo bloqueó (usuario4)");
+            System.out.println("\t---> ERROR: " + usuario5.getUsername() + " no puede desbloquear al que lo bloqueó (" + usuario4.getUsername() + ")");
         }
-        System.out.println("Estado: " + usuario4.buscarConexion(usuario5).get().conexion());
+        System.out.println("\tEstado: " + usuario4.buscarConexion(usuario5).get().conexion());
+        System.out.println(usuario4.getUsername() + " envía solicitud a " + usuario5.getUsername());
+        try{
+            usuario4.enviarSolicitud(usuario5);
+        } catch (AssertionError e){
+            System.out.println("\t---> ERROR: " + usuario4.getUsername() + " no puede establecer más de una conexión con " + usuario5.getUsername() + ", primero tiene que desbloquearlo");
+        }
+        System.out.println("\tEstado: " + usuario4.buscarConexion(usuario5).get().conexion());
 
-        usuario4.cancelarConexion(usuario5);
-        try {
-            System.out.println("Estado: " + usuario4.buscarConexion(usuario5).orElseThrow().conexion());
-        } catch (NoSuchElementException e){
-            System.out.println("---> ERROR: no existe la conexión entre usuario4 y usuario5");
+        System.out.println("\nUsuario1 -- Usuario1");
+        System.out.println(usuario1.getUsername() + " envía solicitud a " + usuario1.getUsername());
+        try{
+            usuario1.enviarSolicitud(usuario1);
+        } catch (AssertionError e){
+            System.out.println("\t---> ERROR: " + usuario1.getUsername() + " no puede enviarse solicitud a sí mismo");
         }
 
         System.out.println("\n\n---------------------------------------------------------------");

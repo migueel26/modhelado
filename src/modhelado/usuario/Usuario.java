@@ -146,7 +146,6 @@ public class Usuario {
 		return conexion;
 	}
 
-
 	public Enumeration<Conexion> getConexiones() {
 		return Collections.enumeration(conexiones);
 	}
