@@ -16,7 +16,7 @@ import static modhelado.interes.Tecnologia.tecnologia;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("----------------- Wellcome to MyTriboo! -----------------");
+        System.out.println("----------------- Welcome to MyTriboo! -----------------");
         //Crear varios usuarios
         System.out.println("-> CREACIÓN USUARIOS:");
         Usuario usuario1 = new Usuario("mariaa1", "María", "López","maria@gmail.com","01-01-2005");
